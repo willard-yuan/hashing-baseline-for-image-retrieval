@@ -34,7 +34,7 @@ different code length <br/>
 ========================================================================================
 ### Demo results
 
-![image](https://raw.github.com/willard-yuan/ITQ_ImageRetrieval/blob/master/LSH_PR.jpg)
+![image](https://github.com/willard-yuan/ITQ_ImageRetrieval/blob/master/LSH_PR.jpg)
 
 ![image](http://s11.sinaimg.cn/mw690/ad9597a3gx6BNOBWT4Cfa&690)
 
