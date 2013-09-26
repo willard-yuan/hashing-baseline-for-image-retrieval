@@ -34,10 +34,11 @@ different code length <br/>
 ========================================================================================
 ### Demo results
 
+
 ![image](https://github.com/willard-yuan/ITQ_ImageRetrieval/raw/master/QueryAirplaneResult.jpg)
 
 ![image](https://github.com/willard-yuan/ITQ_ImageRetrieval/raw/master/PR_DifMethods.jpg)
 
-![image](https://github.com/willard-yuan/ITQ_ImageRetrieval/raw/master/LSH_PR.jpg)
+![image](https://github.com/willard-yuan/ITQ_ImageRetrieval/raw/master/LSH_PR.jpg )
 
 If there is a bug, don't hesitate to contact me. Thanks!<br/>
