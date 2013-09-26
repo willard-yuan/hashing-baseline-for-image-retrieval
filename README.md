@@ -1,17 +1,19 @@
 =======================================================================================
+### Overview:<br/>
 
-This matlab source code comes from http://www.unc.edu/~yunchao/itq.htm. I have modified
-it and implement drawing the Precision Recall Curves using different methods such as 
-ITQ/LSH/RR/SKLSH, and different binary bit length PR_Curves using LSH. A Retri_Images_Demo is also 
-provided to show the image retrieval result using ITQ.<br/>
+This matlab source code comes from http://www.unc.edu/~yunchao/itq.htm. <br/>
+> I have modified it and implement drawing the Precision Recall Curves using <br/>
+different methods such as ITQ/LSH/RR/SKLSH, and different binary bit length <br/>
+PR_Curves using LSH. A Retri_Images_Demo is also  provided to show the image <br/>
+retrieval result using ITQ.<br/>
 
 Modified by Willard, and my website is: www.yuanyong.org<br/>
 
 ========================================================================================
 
-Important files are:<br/>
+### Important files are:<br/>
 
-1) ITQ.m: implements the Iterative Quantization method <br/>
+> 1) ITQ.m: implements the Iterative Quantization method <br/>
 2) compressITQ: convert large-scale data to binary matrix <br/>
 3) main.m: demo code computes recall precision, also implements some other baseline methods <br/>
 4) RF_train.m: estimate some parameter for SKLSH <br/>
@@ -24,11 +26,18 @@ different code length <br/>
 
 ========================================================================================
 
-Some important notes: <br/>
-1) before ITQ, the data must have be centered <br/>
+### Some important notes: <br/>
+> 1) before ITQ, the data must have be centered <br/>
 2) we found 20-50 iterations are usually enough for ITQ <br/>
 3) I modified it on a 16G memory computer, 4G is failed for the dataset is large <br/>
-<br/>
-If there is a bug, don't hesitate to contact me. Thanks!<br/>
 
-![image](https://github.com/willard-yuan/ITQ_ImageRetrieval/blob/master/PR_DifMethods.jpg)
+========================================================================================
+### Demo results
+
+![image](http://s11.sinaimg.cn/mw690/ad9597a3gx6BNOBWT4Cfa&690)
+
+![image](http://s15.sinaimg.cn/mw690/ad9597a3gx6BNOokDw2be&690)
+
+![image](http://s15.sinaimg.cn/mw690/ad9597a3gx6BNOuGdv8ce&690)
+
+If there is a bug, don't hesitate to contact me. Thanks!<br/>
