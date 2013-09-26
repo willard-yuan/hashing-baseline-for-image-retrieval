@@ -1,8 +1,8 @@
-=======================================Matlab Code======================================
+=======================================================================================
 
-This source code comes from http://www.unc.edu/~yunchao/itq.htm. I have modified it and
-implement drawing the Precision Recall Curves using different methods such as ITQ/LSH/RR
-/SKLSH, and different binary bit length PR_Curves using LSH. A Retri_Images_Demo is also 
+This matlab source code comes from http://www.unc.edu/~yunchao/itq.htm. I have modified
+it and implement drawing the Precision Recall Curves using different methods such as 
+ITQ/LSH/RR/SKLSH, and different binary bit length PR_Curves using LSH. A Retri_Images_Demo is also 
 provided to show the image retrieval result using ITQ.<br/>
 
 Modified by Willard, and my website is: www.yuanyong.org<br/>
