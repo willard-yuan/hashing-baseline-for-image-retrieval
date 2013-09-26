@@ -35,10 +35,10 @@ different code length <br/>
 ### Demo results
 
 
-![image](https://github.com/willard-yuan/ITQ_ImageRetrieval/raw/master/QueryAirplaneResult.jpg)
+![image](http://s11.sinaimg.cn/mw690/ad9597a3gx6BNOBWT4Cfa&690)
 
-![image](https://github.com/willard-yuan/ITQ_ImageRetrieval/raw/master/PR_DifMethods.jpg)
+![image](http://s15.sinaimg.cn/mw690/ad9597a3gx6BNOuGdv8ce&690)
 
-![image](https://github.com/willard-yuan/ITQ_ImageRetrieval/raw/master/LSH_PR.jpg )
+![image](http://s15.sinaimg.cn/mw690/ad9597a3gx6BNOokDw2be&690)
 
 If there is a bug, don't hesitate to contact me. Thanks!<br/>
