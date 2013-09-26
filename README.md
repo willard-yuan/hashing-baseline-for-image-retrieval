@@ -30,3 +30,5 @@ Some important notes: <br/>
 3) I modified it on a 16G memory computer, 4G is failed for the dataset is large <br/>
 <br/>
 If there is a bug, don't hesitate to contact me. Thanks!<br/>
+
+![image](https://github.com/willard-yuan/ITQ_ImageRetrieval/blob/master/PR_DifMethods.jpg)
