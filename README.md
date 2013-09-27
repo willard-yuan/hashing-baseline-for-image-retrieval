@@ -7,7 +7,8 @@ different methods such as ITQ/LSH/RR/SKLSH, and different binary bit length <br/
 PR_Curves using LSH. A Retri_Images_Demo is also  provided to show the image <br/>
 retrieval result using ITQ.<br/>
 
-Modified by Willard, and my website is: www.yuanyong.org<br/>
+Modified by Willard, and you can see the detains from my website is: 
+> www.yuanyong.org/blog/cv/lsh-itq-sklsh-compliment<br/>
 
 ========================================================================================
 
