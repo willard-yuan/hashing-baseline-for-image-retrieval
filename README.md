@@ -36,7 +36,8 @@ different code length <br/>
 ### Demo results
 
 
-![image](http://s11.sinaimg.cn/mw690/ad9597a3gx6BNOBWT4Cfa&690)
+![image](http://ww2.sinaimg.cn/large/ad9597a3gw1e9i5cacy8fj20tl0j1go1.jpg)
+Note: The bounding box image using red color is the query image.
 
 ![image](http://s15.sinaimg.cn/mw690/ad9597a3gx6BNOuGdv8ce&690)
 
