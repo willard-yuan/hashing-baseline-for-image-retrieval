@@ -1,12 +1,16 @@
 ======================Matlab Code================================
 
 This source code comes from http://www.unc.edu/~yunchao/itq.htm. I have modified it and
-implement drawing the Precision Recall Curves using different methods such as ITQ/LSH/RR
-/SKLSH, and different binary bit length PR_Curves using LSH. A Retri_Images_Demo is also 
-provided to show the image retrieval result using ITQ.
+implement drawing the Precision Recall Curve using different method such as ITQ/LSH/RR
+/SKLSH, and
+Yunchao Gong and Svetlana lazebnik.
+Iterative Quantization: A Procrustean Approach to Learning Binary Code
+CVPR 2011.
+Author: Yunchao Gong and Svetlana Lazebnik
+Contact: yunchao@cs.unc.edu
 
-Modified by Willard, and my website is: www.yuanyong.org
 
+This package contains cleaned up code for the above paper.
 
 Important files are:
 
@@ -16,13 +20,11 @@ Important files are:
 4) RF_train.m: estimate some parameter for SKLSH
 5) RF_compress.m: perform SKLSH binary embedding
 6) cca.m performs a canonical correlation analysis for supervised cases
-7) Demo_PR.m: This is a geometric illustration of Draw the Recall Precision Curve
-8) DemoLSH_PR.m: This is a geometric illustration of LSH recall & precision using different
-code length
-9) Retri_Images_Demo.m: This is a PCA-ITQ demo showing the retrieval sample
 
 Some important notes:
-1) before ITQ, the data must have be centered
+1) before ITQ, the data must have be centered (see secton 2.2 of the paper)
 2) we found 20-50 iterations are usually enough for ITQ
 
-If there is a bug, don't hesitate to contact me, Thanks!
+
+We appreciate any bug report. Thanks!
+
