@@ -9,8 +9,9 @@ close all; clear all; clc;
 
 addpath('./utils/');
 
-nbits = 64;
+nbits = 256;
 
+% load dataset
 if ~exist('exp_data.mat', 'file')
     load cifar_10yunchao.mat;
     db_label = cifar10;
@@ -22,14 +23,15 @@ else
     load exp_data.mat;
 end
 
-hashmethods = { 'itq', 'pcah', 'rr', 'sklsh', 'lsh', 'sh', 'sph'};
+hashmethods = { 'itq', 'pcah', 'rr', 'sklsh', 'lsh', 'sh', 'sph', 'dsh'};
 nhmethods = length(hashmethods);
 
 for i = 1:nhmethods
     [recall{1, i}, precision{1, i}] = demo(exp_data, nbits, hashmethods{1, i});
 end
 
-markers = {'r-o', 'b-o', 'k-o',  'm-o', 'c-o', 'g-o', 'y-o'};
+% plot markers
+markers = {'r-o', 'b-o', 'k-o',  'm-o', 'c-o', 'g-o', 'y-o', 'b-p'};
 
 %% show precision vs. recall
 figure('Color', [1 1 1]); hold on;
@@ -40,7 +42,7 @@ str_nbits =  num2str(nbits);
 xlabel(['recall @ ', str_nbits, ' bits']);
 ylabel('precision');
 axis square;
-legend('PCA-ITQ', 'PCAH', 'PCA-RR', 'SKLSH', 'LSH', 'SH', 'SpH', 'Location', 'best');
+legend('PCA-ITQ', 'PCAH', 'PCA-RR', 'SKLSH', 'LSH', 'SH', 'SpH', 'DSH', 'Location', 'best');
 box on;
 grid on;
 hold off;

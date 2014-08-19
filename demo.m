@@ -23,7 +23,6 @@ clear exp_data;
 switch(method)
     %% ITQ method proposed in our CVPR11 paper
     case 'itq'
-        % ITQ
         addpath('./ITQ/');
         addpath('./PCAH/');
 		fprintf('......%s start...... \n\n', 'PCA-ITQ');
@@ -34,8 +33,8 @@ switch(method)
         [B_tst, ~] = compressITQ(test_data, ITQparam);
         %[B_db, ~] = compressITQ(db_data, ITQparam);
         clear train_data test_data db_data ITQparam;
+    % PCA hashing
     case 'pcah'
-        % PCAH
         addpath('./PCAH/');
 		fprintf('......%s start...... \n\n', 'PCAH');
         PCAHparam.nbits = nbits;
@@ -46,7 +45,6 @@ switch(method)
         clear train_data test_data db_data PCAHparam;
     % RR method proposed in  CVPR11 paper
     case 'rr'
-        % RR
         addpath('./RR/');
         addpath('./PCAH/');
 		fprintf('......%s start...... \n\n', 'PCA-RR');
@@ -80,6 +78,7 @@ switch(method)
         [B_tst, ~] = compressLSH(test_data, LSHparam);
         %[B_db, ~] = compressLSH(db_data, LSHparam);
         clear train_data test_data db_data LSHparam;
+     % Spetral hashing
      case 'sh'
         addpath('./SH/');
         addpath('./PCAH/');
@@ -90,7 +89,7 @@ switch(method)
         [B_trn, ~] = compressSH(train_data, SHparam);
         [B_tst, ~] = compressSH(test_data, SHparam);
         %[B_db, ~] = compressITQ(db_data, ITQparam);
-          % Locality sensitive hashing (LSH)
+     % Spherical hashing
      case 'sph'
         addpath('./SpH/');
 		fprintf('......%s start ......\n\n', 'SpH');
@@ -98,8 +97,29 @@ switch(method)
         SpHparam.ntrain = ntrain;
         SpHparam = trainSpH(train_data, SpHparam);
         [B_trn, B_tst] = compressSpH(db_data, SpHparam);
-        clear train_data test_data db_data SpHparam;
-     case 'bre' % too show
+     % Density sensitive hashing
+     case 'dsh'
+        addpath('./DSH/');
+		fprintf('......%s start ......\n\n', 'DSH');
+        DSHparam.nbits = nbits;
+        DSHparam = trainDSH(train_data, DSHparam);
+        [B_trn, ~] = compressDSH(train_data, DSHparam);
+        [B_tst, ~] = compressDSH(test_data, DSHparam);
+        clear train_data test_data db_data DSHparam;
+     % unsupervised sequential projection learning based hashing
+     case 'usplh' % it don't work, the result is error.
+        addpath('./USPLH/');
+		fprintf('......%s start...... \n\n', 'USPLH');
+        USPLHparam.nbits = nbits;
+        USPLHparam.c_num=2000;%%% %%% this parameter is for the number of pseduo pair-wise labels
+        USPLHparam.lambda=0.1;
+        USPLHparam.eta=0.125;
+        USPLHparam = trainUSPLH(train_data, USPLHparam);
+        [B_trn, ~] = compressUSPLH(train_data, USPLHparam);
+        [B_tst, ~] = compressUSPLH(test_data, USPLHparam);
+        %[B_db, ~] = compressUSPLH(db_data, USPLHparam);
+        clear train_data test_data db_data USPLparam;
+     case 'bre' % it runs too much slow, and I don't get the result.
         addpath('./BRE/');
         addpath('./PCAH/');
 		fprintf('......%s start...... \n\n', 'BRE');

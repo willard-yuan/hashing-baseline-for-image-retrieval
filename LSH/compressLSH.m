@@ -11,9 +11,9 @@ function [B, U] = compressLSH(X, LSHparam)
 
 
 U = X*LSHparam.w;
-B = zeros(size(U));
-B (U>0) = 1;
-B = compactbit(B>0);
+%B = zeros(size(U));
+%B (U>0) = 1;
+B = compactbit(U>0);
 U = (U>0);
 
 
