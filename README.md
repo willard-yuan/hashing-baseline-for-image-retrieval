@@ -40,6 +40,4 @@ Note: The bounding box image using red color is the query image.
 
 ![image](./plot-result/pr-64bits.png)
 
-![image](http://s15.sinaimg.cn/mw690/ad9597a3gx6BNOokDw2be&690)
-
 If there is a bug, don't hesitate to contact me. Thanks!<br/>
