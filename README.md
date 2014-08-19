@@ -38,7 +38,7 @@ Note: The bounding box image using red color is the query image.
 
 ![image](http://ww4.sinaimg.cn/large/ad9597a3gw1e9i5n5d8gdj20ea0aqmzb.jpg)
 
-![image](http://s15.sinaimg.cn/mw690/ad9597a3gx6BNOuGdv8ce&690)
+![image](./plot-result/pr-64bits.png)
 
 ![image](http://s15.sinaimg.cn/mw690/ad9597a3gx6BNOokDw2be&690)
 
