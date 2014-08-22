@@ -1,15 +1,18 @@
-function [recall, precision] = demo(exp_data, nbits, method)
+function [recall, precision, evaluation_info] = demo(exp_data, param, method)
 
 % input: 
 %          data: 
 %              data.train_data
 %              data.test_data
 %              data.db_data
-%          nbits: encoding length
+%          param:
+%              param.nbits---encoding length
+%              param.pos---position
 %          method: encoding length
 % output:
 %            recall: recall rate
 %            precision: precision rate
+%            evaluation_info: 
 
 train_data = exp_data.train_data;
 test_data = exp_data.test_data;
@@ -22,11 +25,11 @@ clear exp_data;
 %several state of art methods
 switch(method)
     %% ITQ method proposed in our CVPR11 paper
-    case 'itq'
+    case 'PCA-ITQ'
         addpath('./ITQ/');
         addpath('./PCAH/');
 		fprintf('......%s start...... \n\n', 'PCA-ITQ');
-        ITQparam.nbits = nbits;
+        ITQparam.nbits = param.nbits;
         ITQparam =  trainPCAH(db_data, ITQparam);
         ITQparam = trainITQ(train_data, ITQparam);
         [B_trn, ~] = compressITQ(train_data, ITQparam);
@@ -34,21 +37,21 @@ switch(method)
         %[B_db, ~] = compressITQ(db_data, ITQparam);
         clear train_data test_data db_data ITQparam;
     % PCA hashing
-    case 'pcah'
+    case 'PCAH'
         addpath('./PCAH/');
 		fprintf('......%s start...... \n\n', 'PCAH');
-        PCAHparam.nbits = nbits;
+        PCAHparam.nbits = param.nbits;
         PCAHparam = trainPCAH(db_data, PCAHparam);
         [B_trn, ~] = compressPCAH(train_data, PCAHparam);
         [B_tst, ~] = compressPCAH(test_data, PCAHparam);
         %[B_db, ~] = compressPCAH(db_data, PCAHparam);
         clear train_data test_data db_data PCAHparam;
     % RR method proposed in  CVPR11 paper
-    case 'rr'
+    case 'PCA-RR'
         addpath('./RR/');
         addpath('./PCAH/');
 		fprintf('......%s start...... \n\n', 'PCA-RR');
-        RRparam.nbits = nbits;
+        RRparam.nbits = param.nbits;
         RRparam =  trainPCAH(db_data, RRparam);
         RRparam = trainRR(RRparam);      
         [B_trn, ~] = compressRR(train_data, RRparam);
@@ -56,22 +59,22 @@ switch(method)
         %[B_db, ~] = compressRR(db_data, RRparam);
         clear train_data test_data db_data RRparam;        
    % SKLSH Locality Sensitive Binary Codes from Shift-Invariant Kernels. NIPS 2009.
-    case 'sklsh' 
+    case 'SKLSH' 
         addpath('./SKLSH/');
 		fprintf('......%s start......\n\n', 'SKLSH');
         RFparam.gamma = 1; 
         RFparam.D = D; 
-        RFparam.M = nbits;
+        RFparam.M = param.nbits;
         RFparam = RF_train(RFparam);
         B_trn = RF_compress(train_data, RFparam);
         B_tst = RF_compress(test_data, RFparam);
         %B_db = RF_compress(db_data, RFparam);
        clear train_data test_data db_data RFparam; 
     % Locality sensitive hashing (LSH)
-     case 'lsh'
+     case 'LSH'
         addpath('./LSH/');
 		fprintf('......%s start ......\n\n', 'LSH');
-        LSHparam.nbits = nbits;
+        LSHparam.nbits = param.nbits;
         LSHparam.dim = D;
         LSHparam = trainLSH(LSHparam);
         [B_trn, ~] = compressLSH(train_data, LSHparam);
@@ -79,39 +82,39 @@ switch(method)
         %[B_db, ~] = compressLSH(db_data, LSHparam);
         clear train_data test_data db_data LSHparam;
      % Spetral hashing
-     case 'sh'
+     case 'SH'
         addpath('./SH/');
         addpath('./PCAH/');
 		fprintf('......%s start...... \n\n', 'SH');
-        SHparam.nbits = nbits;
+        SHparam.nbits = param.nbits;
         SHparam =  trainPCAH(db_data, SHparam);
         SHparam = trainSH(train_data, SHparam);
         [B_trn, ~] = compressSH(train_data, SHparam);
         [B_tst, ~] = compressSH(test_data, SHparam);
         %[B_db, ~] = compressITQ(db_data, ITQparam);
      % Spherical hashing
-     case 'sph'
+     case 'SpH'
         addpath('./SpH/');
 		fprintf('......%s start ......\n\n', 'SpH');
-        SpHparam.nbits = nbits;
+        SpHparam.nbits = param.nbits;
         SpHparam.ntrain = ntrain;
         SpHparam = trainSpH(train_data, SpHparam);
         [B_trn, B_tst] = compressSpH(db_data, SpHparam);
      % Density sensitive hashing
-     case 'dsh'
+     case 'DSH'
         addpath('./DSH/');
 		fprintf('......%s start ......\n\n', 'DSH');
-        DSHparam.nbits = nbits;
+        DSHparam.nbits = param.nbits;
         DSHparam = trainDSH(train_data, DSHparam);
         [B_trn, ~] = compressDSH(train_data, DSHparam);
         [B_tst, ~] = compressDSH(test_data, DSHparam);
         clear train_data test_data db_data DSHparam;
      % unsupervised sequential projection learning based hashing
-     case 'usplh' % it don't work, the result is error.
+     case 'USPLH' % it don't work, the result is error.
         addpath('./USPLH/');
 		fprintf('......%s start...... \n\n', 'USPLH');
-        USPLHparam.nbits = nbits;
-        USPLHparam.c_num=2000;%%% %%% this parameter is for the number of pseduo pair-wise labels
+        USPLHparam.nbits = param.nbits;
+        USPLHparam.c_num=2000;% this parameter is for the number of pseduo pair-wise labels
         USPLHparam.lambda=0.1;
         USPLHparam.eta=0.125;
         USPLHparam = trainUSPLH(train_data, USPLHparam);
@@ -119,11 +122,11 @@ switch(method)
         [B_tst, ~] = compressUSPLH(test_data, USPLHparam);
         %[B_db, ~] = compressUSPLH(db_data, USPLHparam);
         clear train_data test_data db_data USPLparam;
-     case 'bre' % it runs too much slow, and I don't get the result.
+     case 'BRE' % it runs too much slow, and I don't get the result.
         addpath('./BRE/');
         addpath('./PCAH/');
 		fprintf('......%s start...... \n\n', 'BRE');
-        BREparam.nbits = nbits;
+        BREparam.nbits = param.nbits;
         BREparam =  trainPCAH(db_data, BREparam);
         BREparam = init_BREparam(train_data, test_data, BREparam);
         [H, H_query] = trainBRE(BREparam);
@@ -134,4 +137,9 @@ end
 
 % compute Hamming metric and compute recall precision
 Dhamm = hammingDist(B_tst, B_trn);
-[recall, precision, rate] = recall_precision(WtrueTestTraining, Dhamm);
+clear B_test B_trn;
+[recall, precision, ~] = recall_precision(WtrueTestTraining, Dhamm);
+%[recall, precision] = evaluation(WtrueTestTraining, Dhamm);
+
+% compute MAP
+evaluation_info = performance2( WtrueTestTraining, Dhamm, param );

@@ -16,18 +16,25 @@
 - **LSH**: Local Sensentive Hashing. Implemented by me.
 - **SKLSH**: Maxim Raginsky and Svetlana Lazebnik. Locality-sensitive binary codes from shift-invariant kernels. Advances in Neural Information Processing 22, pp. 1509-1517, 2009
 - **PCAH**: PCA Hashing. Implemented by me.
+- **DSH**: Density Sensitive Hashing. 项目主页请移步这里：[DSH](http://www.cad.zju.edu.cn/home/dengcai/Data/DSH.html).
 
 ### **待做事项**
 
 - 完善文档
-- 绘制MAP vs. bits曲线，recall vs. the number of top retrieved samples曲线
+- 绘制recall vs. the number of top retrieved samples曲线
 - 再添加一个数据库
 
 ### **结果演示**
 
 在64位编码下，查准率与召回率曲线如下：
 
-![image](./plot-result/pr-64bits.png)
+![image](./plot-result/precision-recall-64bits.png)
+
+平均检索精度MAP随bits长度的变化
+
+![image](./plot-result/map-numbers-of-bits.png)
+
+检索实例
 
 ![image](./QueryAirplaneResult.jpg)
 
@@ -36,7 +43,10 @@
 如果你觉得这个对你有用，想加入进来的话，可以先clone过去，然后再Pull Requests。
 
 ### **版本更新**
-
--  V1.2   modified date: 2014/08/16---2014/08/
+-  V1.3   2014/08/21
+	1. 完成MAP随bits长度的曲线，添加进来SpH和DSH
+	2. 完善绘制的图，使画出的图更美观
+	3. 优化框架结构，使布局更有层次
+-  V1.2   modified date: 2014/08/16---2014/08/19
 -  V1.1   Last modified date: 2013/09/26
 -  V1.0   Initial date: 2013/07/22
