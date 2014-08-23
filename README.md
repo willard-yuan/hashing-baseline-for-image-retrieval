@@ -18,6 +18,10 @@
 - **PCAH**: PCA Hashing. Implemented by me.
 - **DSH**: Density Sensitive Hashing. 项目主页请移步这里：[DSH](http://www.cad.zju.edu.cn/home/dengcai/Data/DSH.html).
 
+### 数据库
+
+数据库`cifar_10yunchao.mat`是来自[Yunchao Gong](http://www.unc.edu/~yunchao/)在[CIFAR10](http://www.cs.toronto.edu/~kriz/cifar.html)提取的320维GIST特征，第321维是图像的类别标签。
+
 ### **待做事项**
 
 - 完善文档
