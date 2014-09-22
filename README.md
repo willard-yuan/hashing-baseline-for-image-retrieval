@@ -60,7 +60,7 @@
 
 在64位编码下，查准率与召回率曲线如下：
 
-<center>![image](./plot-result/precision-recall-64bits.png)</center>
+<p align="center"><img src="./plot-result/precision-recall-64bits.png" alt="Sublime's custom image"/></p>
 
 平均检索精度MAP随bits长度的变化
 
