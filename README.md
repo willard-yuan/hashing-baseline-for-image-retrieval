@@ -6,20 +6,6 @@
 
 ## 哈希方法 ##
 
-- **PCA-ITQ**, **PCA-RR**: Iterative Quantization. 作者建立的项目详细信息请移步这里：[ITQ](http://www.unc.edu/~yunchao/itq.htm)
-
-	>Yunchao Gong and Svetlana Lazebnik.  Iterative Quantization: A Procrustean Approach to Learning Binary Codes. In: IEEE International Conference on Computer Vision and Pattern Recognition (CVPR), 2011.
-
-- **SH**: Spectral Hashing. 作者建立的项目详细信息请移步这里：[SH](http://www.cs.huji.ac.il/~yweiss/SpectralHashing/)
-
-	>Y. Weiss, A. Torralba, R. Fergus. Advances in Neural Information Processing Systems, 2008.
-
-- **SpH**: Spherical Hashing. 作者建立的项目详细信息请移步这里：[SpH](http://sglab.kaist.ac.kr/Spherical_Hashing/)
-
-	>Jae-Pil Heo, Youngwoon Lee, Junfeng He, Shih-Fu Chang, and Sung-eui Yoon. Spherical Hashing. CVPR, 2012.
-
-注意：**截止此刻，所有入选进行的哈希方法都是无监督的**。
-
 - **PCA-ITQ**、**PCA-RR**: Iterative Quantization. 作者建立的项目详细信息请移步这里：[ITQ](http://www.unc.edu/~yunchao/itq.htm)。
 
 	>Yunchao Gong and Svetlana Lazebnik.  Iterative Quantization: A Procrustean Approach to Learning Binary Codes. In: IEEE International Conference on Computer Vision and Pattern Recognition (CVPR), 2011.
@@ -39,14 +25,6 @@
 
 - **PCAH**: PCA Hashing. Implemented by me.
 - **DSH**: Density Sensitive Hashing. 项目主页请移步这里：[DSH](http://www.cad.zju.edu.cn/home/dengcai/Data/DSH.html).
-
-- **LSH**: Local Sensentive Hashing. Implemented by me
-- **SKLSH**: Maxim Raginsky and Svetlana Lazebnik 
-
-	>Locality-sensitive binary codes from shift-invariant kernels. Advances in Neural Information Processing 22, pp. 1509-1517, 2009.
-
-- **PCAH**: PCA Hashing. Implemented by me
-- **DSH**: Density Sensitive Hashing. 项目主页请移步这里：[DSH](http://www.cad.zju.edu.cn/home/dengcai/Data/DSH.html)
 
 注意：**截止此刻，所有入选进行的哈希方法都是无监督的**
 
