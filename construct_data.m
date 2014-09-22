@@ -1,7 +1,10 @@
-function exp_data = construct_data(db_data)
-
+function exp_data = construct_data(db_name, db_data)
 
 addpath('./utils/');
+
+% construct data
+fprintf('starting construct %s database\n\n', db_name);
+
 
 % parameters
 averageNumberNeighbors = 50;    % ground truth is 50 nearest neighbor
@@ -42,3 +45,5 @@ exp_data.train_data = XX(1:num_training, :);
 exp_data.test_data = XX(num_training+1:end, :);
 exp_data.WTT = WtrueTestTraining;
 exp_data.db_data = XX;
+
+fprintf('constructing %s database has finished\n\n', db_name);

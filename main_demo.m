@@ -1,49 +1,58 @@
 % Version control:
+%     V1.4 2014/09/16
 %     V1.3 2014/08/21
-%     V1.2 modified date: 2014/08/16---2014/08/19
-%     V1.1 Last modified date: 2013/09/26
-%     V1.0 Initial date: 2013/07/22
+%     V1.2 2014/08/16
+%     V1.1 2013/09/26
+%     V1.0 2013/07/22
 % Author:
-%     willard-yuan.github.io
+%     yongyuan.name
 
 close all; clear all; clc;
-
 addpath('./utils/');
-
 db_name = 'CIFAR10';
 
 loopnbits = [8 16 32 64 128];
+%loopnbits = [32];
+runtimes = 8; % run 8 times to make the rusult more precise
 
 param.pos = [1000:1000:40000];
 
 % load dataset
-if ~exist('exp_data.mat', 'file')
-    load cifar_10yunchao.mat;
-    db_datalabel = cifar10;
-    db_data = db_datalabel(:, 1:end-1);
-    % construct and save data
-    fprintf('starting construct %s database\n\n', db_name);
-    fprintf('constructing %s database has finished\n\n', db_name);
-    exp_data = construct_data(db_data);
-    save('./exp_data.mat', 'exp_data');
-else
-    load exp_data.mat;
-end
+load cifar_10yunchao.mat;
+db_datalabel = cifar10;
+db_data = db_datalabel(:, 1:end-1);
 
-%hashmethods = {'FGSM', 'MSH', 'DSH'};
-hashmethods = {'PCA-ITQ', 'PCAH', 'PCA-RR', 'SKLSH', 'LSH', 'SH', 'SpH', 'DSH'};
+hashmethods = {'LSH', 'PCAH', 'SH', 'SKLSH', 'PCA-RR', 'PCA-ITQ', 'DSH'};
 nhmethods = length(hashmethods);
 
-for i =1:length(loopnbits)
-    fprintf('======start %d bits encoding======\n\n', loopnbits(i));
-    param.nbits = loopnbits(i);
-    for j = 1:nhmethods
-        [recall{i, j}, precision{i, j}, evaluation_info{i, j}] = demo(exp_data, param, hashmethods{1, j});
+for k = 1:runtimes
+    fprintf('The %d run time, start constructing data\n\n', k);
+    exp_data = construct_data(db_name, db_data);
+    fprintf('Constructing data finished\n\n');
+    for i =1:length(loopnbits)
+        fprintf('======start %d bits encoding======\n\n', loopnbits(i));
+        param.nbits = loopnbits(i);
+        for j = 1:nhmethods
+            [recall{k}{i, j}, precision{k}{i, j}, mAP{k}{i,j}] = demo(exp_data, param, hashmethods{1, j});
+        end
     end
 end
 
+% average MAP
+for j = 1:nhmethods
+    for i =1: length(loopnbits)
+        tmp = zeros(size(mAP{1, 1}{i, j}));
+        for k =1:runtimes
+            tmp = tmp+mAP{1, k}{i, j};
+        end
+        MAP{i, j} = tmp/runtimes;
+    end
+    clear tmp;
+end
+    
+
 % save result
-save('./final_result.mat', 'precision', 'recall', 'evaluation_info', 'hashmethods', 'nhmethods', 'loopnbits');
+save('./final_result.mat', 'precision', 'recall', 'MAP', 'mAP', 'hashmethods', 'nhmethods', 'loopnbits');
 load final_result.mat;
 
 % plot attribution
@@ -56,8 +65,9 @@ title_font_size=xy_font_size;
 %% show precision vs. recall , i is the selection of which bits.
 figure('Color', [1 1 1]); hold on;
 i = 4;
+k = 8;
 for j = 1: nhmethods
-    p = plot(recall{i, j}, precision{i, j});
+    p = plot(recall{k}{i, j}, precision{k}{i, j});
     color=gen_color(j);
     marker=gen_marker(j);
     set(p,'Color', color)
@@ -80,16 +90,16 @@ box on;
 grid on;
 hold off;
 
-%% show MAP vs. bits , i is the selection of which bits.
+%% show mAP. This mAP function is provided by Yunchao Gong
 figure('Color', [1 1 1]); hold on;
-for i = 1: nhmethods
-    MAP = [];
-    for j = 1: length(loopnbits)
-        MAP = [MAP, evaluation_info{j, i}.AP];
+for j = 1: nhmethods
+    map = [];
+    for i = 1: length(loopnbits)
+        map = [map, MAP{i, j}];
     end
-    p = plot(loopnbits, MAP);
-    color=gen_color(i);
-    marker=gen_marker(i);
+    p = plot(log2(loopnbits), map);
+    color=gen_color(j);
+    marker=gen_marker(j);
     set(p,'Color', color);
     set(p,'Marker', marker);
     set(p,'LineWidth', line_width);
@@ -102,8 +112,8 @@ title(db_name, 'FontSize', title_font_size);
 set(h1, 'FontSize', xy_font_size);
 set(h2, 'FontSize', xy_font_size);
 axis square;
-xlim([loopnbits(1) loopnbits(end)]);
-set(gca, 'xtick', loopnbits);
+set(gca, 'xtick', log2(loopnbits));
+set(gca, 'XtickLabel', {'8', '16', '32', '64', '128'});
 hleg = legend(hashmethods);
 set(hleg, 'FontSize', legend_font_size);
 set(hleg, 'Location', 'best');

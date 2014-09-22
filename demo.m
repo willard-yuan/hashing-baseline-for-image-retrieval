@@ -1,5 +1,4 @@
-function [recall, precision, evaluation_info] = demo(exp_data, param, method)
-
+function [recall, precision, mAP] = demo(exp_data, param, method)
 % input: 
 %          data: 
 %              data.train_data
@@ -69,7 +68,7 @@ switch(method)
         B_trn = RF_compress(train_data, RFparam);
         B_tst = RF_compress(test_data, RFparam);
         %B_db = RF_compress(db_data, RFparam);
-       clear train_data test_data db_data RFparam; 
+        clear train_data test_data db_data RFparam; 
     % Locality sensitive hashing (LSH)
      case 'LSH'
         addpath('./LSH/');
@@ -110,6 +109,7 @@ switch(method)
         [B_tst, ~] = compressDSH(test_data, DSHparam);
         clear train_data test_data db_data DSHparam;
      % unsupervised sequential projection learning based hashing
+     
      case 'USPLH' % it don't work, the result is error.
         addpath('./USPLH/');
 		fprintf('......%s start...... \n\n', 'USPLH');
@@ -140,6 +140,4 @@ Dhamm = hammingDist(B_tst, B_trn);
 clear B_test B_trn;
 [recall, precision, ~] = recall_precision(WtrueTestTraining, Dhamm);
 %[recall, precision] = evaluation(WtrueTestTraining, Dhamm);
-
-% compute MAP
-evaluation_info = performance2( WtrueTestTraining, Dhamm, param );
+[mAP] = area_RP(recall, precision);
