@@ -60,15 +60,15 @@
 
 在64位编码下，查准率与召回率曲线如下：
 
-![image](./plot-result/precision-recall-64bits.png)
+<center>![image](./plot-result/precision-recall-64bits.png)</center>
 
 平均检索精度MAP随bits长度的变化
 
-![image](./plot-result/map-numbers-of-bits.png)
+<center>![image](./plot-result/map-numbers-of-bits.png)</center>
 
 检索实例
 
-![image](./QueryAirplaneResult.jpg)
+<center>![image](./QueryAirplaneResult.jpg)</center>
 
 ## 加入进来 ##
 
