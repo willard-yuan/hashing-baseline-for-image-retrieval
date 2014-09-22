@@ -68,7 +68,7 @@
 
 检索实例
 
-<ce<p align="center"><img src="./QueryAirplaneResult.jpg" alt="QueryAirplaneResult"/></p>
+<p align="center"><img src="./QueryAirplaneResult.jpg" alt="QueryAirplaneResult"/></p>
 
 ## 加入进来 ##
 
