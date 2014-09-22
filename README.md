@@ -22,14 +22,19 @@
 
 数据库`cifar_10yunchao.mat`是来自[Yunchao Gong](http://www.unc.edu/~yunchao/)在[CIFAR10](http://www.cs.toronto.edu/~kriz/cifar.html)提取的320维GIST特征，第321维是图像的类别标签。
 
-### **待做事项**
+### 待做事项
 
 - 完善文档
 - 绘制recall vs. the number of top retrieved samples曲线
 - 再添加一个数据库
 
+### 运行环境要求
 
-### **版本更新**
+- 64位系统（主要是图像数据库比较大，Windows或Linux都可以）
+- 16g内存（我电脑是16g的，8g的应该也行）
+
+
+### 版本更新
 -  V1.4   2014/09/22
 	1. 修复画MAP曲线的错误，重新以Gong Yunchao所用的计算曲线面积的方法画MAP曲线
 	2. 将原来画曲线时只运行一次改为运行多次（8次，程序中可以自己修改设定），对8次的MAP取平均，之所以这样做是因为不同的方法中用到了随机函数，通过运行多次减少每次运行结果的差异
@@ -41,7 +46,7 @@
 -  V1.1   Last modified date: 2013/09/26
 -  V1.0   Initial date: 2013/07/22
 
-### **结果演示**
+### 结果演示
 
 在64位编码下，查准率与召回率曲线如下：
 
@@ -55,6 +60,6 @@
 
 ![image](./QueryAirplaneResult.jpg)
 
-### **加入进来**
+### 加入进来
 
 如果你觉得这个对你有用，想加入进来的话，可以先clone过去，然后再Pull Requests。
