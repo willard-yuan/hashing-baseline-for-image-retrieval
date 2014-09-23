@@ -26,7 +26,7 @@
 - **PCAH**: PCA Hashing. Implemented by me.
 - **DSH**: Density Sensitive Hashing. 项目主页请移步这里：[DSH](http://www.cad.zju.edu.cn/home/dengcai/Data/DSH.html).
 
-注意：**截止此刻，所有入选进行的哈希方法都是无监督的**
+注意：截止此刻，所有入选进行的哈希方法都是无监督的
 
 ## 数据库说明 ##
 
@@ -60,11 +60,11 @@
 
 在64位编码下，查准率与召回率曲线如下：
 
-<p align="center"><img src="./plot-result/precision-recall-64bits.png" alt="precision-recall-64bits"/></p>
+<p align="center"><img src="./plot-result/PR-64bits.png" alt="precision-recall-64bits"/></p>
 
 平均检索精度MAP随bits长度的变化
 
-<p align="center"><img src="./plot-result/map-numbers-of-bits.png" alt="map-numbers-of-bits"/></p>
+<p align="center"><img src="./plot-result/MAP.png" alt="map-numbers-of-bits"/></p>
 
 检索实例
 
