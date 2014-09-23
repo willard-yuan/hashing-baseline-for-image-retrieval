@@ -11,9 +11,9 @@ close all; clear all; clc;
 addpath('./utils/');
 db_name = 'CIFAR10';
 
-loopnbits = [8 16 32 64 128];
+loopnbits = [8 16 32 64 128 256];
 %loopnbits = [32];
-runtimes = 8; % run 8 times to make the rusult more precise
+runtimes = 10; % run 8 times to make the rusult more precise
 
 param.pos = [1000:1000:40000];
 
@@ -22,7 +22,7 @@ load cifar_10yunchao.mat;
 db_datalabel = cifar10;
 db_data = db_datalabel(:, 1:end-1);
 
-hashmethods = {'LSH', 'PCAH', 'SH', 'SKLSH', 'PCA-RR', 'PCA-ITQ', 'DSH'};
+hashmethods = {'PCA-ITQ', 'LSH', 'PCAH', 'SH', 'SKLSH', 'PCA-RR', 'DSH'};
 nhmethods = length(hashmethods);
 
 for k = 1:runtimes
@@ -36,6 +36,7 @@ for k = 1:runtimes
             [recall{k}{i, j}, precision{k}{i, j}, mAP{k}{i,j}] = demo(exp_data, param, hashmethods{1, j});
         end
     end
+    clear exp_data;
 end
 
 % average MAP
@@ -65,7 +66,7 @@ title_font_size=xy_font_size;
 %% show precision vs. recall , i is the selection of which bits.
 figure('Color', [1 1 1]); hold on;
 i = 4;
-k = 8;
+k = 10;
 for j = 1: nhmethods
     p = plot(recall{k}{i, j}, precision{k}{i, j});
     color=gen_color(j);
@@ -113,7 +114,7 @@ set(h1, 'FontSize', xy_font_size);
 set(h2, 'FontSize', xy_font_size);
 axis square;
 set(gca, 'xtick', log2(loopnbits));
-set(gca, 'XtickLabel', {'8', '16', '32', '64', '128'});
+set(gca, 'XtickLabel', {'8', '16', '32', '64', '128', '256'});
 hleg = legend(hashmethods);
 set(hleg, 'FontSize', legend_font_size);
 set(hleg, 'Location', 'best');
