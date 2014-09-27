@@ -11,6 +11,9 @@ close all; clear all; clc;
 addpath('./utils/');
 db_name = 'CIFAR10';
 
+query_ID = 1;
+param.choice = 'evaluation';
+
 loopnbits = [8 16 32 64 128 256];
 %loopnbits = [32];
 runtimes = 10; % run 8 times to make the rusult more precise
@@ -32,8 +35,9 @@ for k = 1:runtimes
     for i =1:length(loopnbits)
         fprintf('======start %d bits encoding======\n\n', loopnbits(i));
         param.nbits = loopnbits(i);
+        param.query_ID = query_ID;
         for j = 1:nhmethods
-            [recall{k}{i, j}, precision{k}{i, j}, mAP{k}{i,j}] = demo(exp_data, param, hashmethods{1, j});
+            [recall{k}{i, j}, precision{k}{i, j}, mAP{k}{i,j}, ~] = demo(exp_data, param, hashmethods{1, j});
         end
     end
     clear exp_data;

@@ -1,4 +1,4 @@
-function [recall, precision, mAP] = demo(exp_data, param, method)
+function [recall, precision, mAP, retrieved_list] = demo(exp_data, param, method)
 % input: 
 %          data: 
 %              data.train_data
@@ -17,13 +17,18 @@ train_data = exp_data.train_data;
 test_data = exp_data.test_data;
 db_data = exp_data.db_data;
 WtrueTestTraining = exp_data.WTT;
+
+ID.train = exp_data.train_ID;
+ID.test = exp_data.test_ID;
+ID.query = param.query_ID;
+
 clear exp_data;
 
 [ntrain, D] = size(train_data);
 
 %several state of art methods
 switch(method)
-    %% ITQ method proposed in our CVPR11 paper
+    %% ITQ method proposed in CVPR11 paper
     case 'PCA-ITQ'
         addpath('./ITQ/');
         addpath('./PCAH/');
@@ -34,7 +39,7 @@ switch(method)
         [B_trn, ~] = compressITQ(train_data, ITQparam);
         [B_tst, ~] = compressITQ(test_data, ITQparam);
         %[B_db, ~] = compressITQ(db_data, ITQparam);
-        clear train_data test_data db_data ITQparam;
+        clear db_data ITQparam;
     % PCA hashing
     case 'PCAH'
         addpath('./PCAH/');
@@ -44,7 +49,7 @@ switch(method)
         [B_trn, ~] = compressPCAH(train_data, PCAHparam);
         [B_tst, ~] = compressPCAH(test_data, PCAHparam);
         %[B_db, ~] = compressPCAH(db_data, PCAHparam);
-        clear train_data test_data db_data PCAHparam;
+        clear db_data PCAHparam;
     % RR method proposed in  CVPR11 paper
     case 'PCA-RR'
         addpath('./RR/');
@@ -56,7 +61,7 @@ switch(method)
         [B_trn, ~] = compressRR(train_data, RRparam);
         [B_tst, ~] = compressRR(test_data, RRparam);
         %[B_db, ~] = compressRR(db_data, RRparam);
-        clear train_data test_data db_data RRparam;        
+        clear db_data RRparam;        
    % SKLSH Locality Sensitive Binary Codes from Shift-Invariant Kernels. NIPS 2009.
     case 'SKLSH' 
         addpath('./SKLSH/');
@@ -68,7 +73,7 @@ switch(method)
         B_trn = RF_compress(train_data, RFparam);
         B_tst = RF_compress(test_data, RFparam);
         %B_db = RF_compress(db_data, RFparam);
-        clear train_data test_data db_data RFparam; 
+        clear db_data RFparam; 
     % Locality sensitive hashing (LSH)
      case 'LSH'
         addpath('./LSH/');
@@ -79,7 +84,7 @@ switch(method)
         [B_trn, ~] = compressLSH(train_data, LSHparam);
         [B_tst, ~] = compressLSH(test_data, LSHparam);
         %[B_db, ~] = compressLSH(db_data, LSHparam);
-        clear train_data test_data db_data LSHparam;
+        clear db_data LSHparam;
      % Spetral hashing
      case 'SH'
         addpath('./SH/');
@@ -107,7 +112,7 @@ switch(method)
         DSHparam = trainDSH(train_data, DSHparam);
         [B_trn, ~] = compressDSH(train_data, DSHparam);
         [B_tst, ~] = compressDSH(test_data, DSHparam);
-        clear train_data test_data db_data DSHparam;
+        clear db_data DSHparam;
      % unsupervised sequential projection learning based hashing
      
      case 'USPLH' % it don't work, the result is error.
@@ -121,7 +126,7 @@ switch(method)
         [B_trn, ~] = compressUSPLH(train_data, USPLHparam);
         [B_tst, ~] = compressUSPLH(test_data, USPLHparam);
         %[B_db, ~] = compressUSPLH(db_data, USPLHparam);
-        clear train_data test_data db_data USPLparam;
+        clear db_data USPLparam;
      case 'BRE' % it runs too much slow, and I don't get the result.
         addpath('./BRE/');
         addpath('./PCAH/');
@@ -132,12 +137,25 @@ switch(method)
         [H, H_query] = trainBRE(BREparam);
         [B_trn, ~] = compressBRE(H);
         [B_tst, ~] = compressBRE(H_query);
-        clear train_data test_data db_data BREparam;
+        clear db_data BREparam;
 end
 
 % compute Hamming metric and compute recall precision
 Dhamm = hammingDist(B_tst, B_trn);
-clear B_test B_trn;
-[recall, precision, ~] = recall_precision(WtrueTestTraining, Dhamm);
-%[recall, precision] = evaluation(WtrueTestTraining, Dhamm);
-[mAP] = area_RP(recall, precision);
+clear B_tst B_trn;
+choice = param.choice;
+switch(choice)
+    case 'evaluation'
+        clear train_data test_data;
+        [recall, precision, ~] = recall_precision(WtrueTestTraining, Dhamm);
+        [mAP] = area_RP(recall, precision);
+        retrieved_list = [];
+    case 'visualization'
+        num = param.numRetrieval;
+        retrieved_list =  visualization(Dhamm, ID, num, train_data, test_data); 
+        recall = [];
+        precision = [];
+        mAP = [];
+end
+
+end

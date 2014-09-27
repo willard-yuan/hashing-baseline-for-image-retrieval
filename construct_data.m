@@ -15,8 +15,10 @@ num_test = 1000;                % 1000 query test point, rest are database
 [ndata, D] = size(db_data);
 R = randperm(ndata);
 test_data = db_data(R(1:num_test), :);
+test_ID = R(1:num_test);
 R(1: num_test) = [];
 train_data = db_data(R, :);
+train_ID = R;
 num_training = size(train_data, 1);
 
 % define ground-truth neighbors (this is only used for the evaluation):
@@ -42,6 +44,8 @@ sampleMean = mean(XX,1);
 XX = (double(XX)-repmat(sampleMean,size(XX,1),1));
 
 exp_data.train_data = XX(1:num_training, :);
+exp_data.train_ID = train_ID;
+exp_data.test_ID = test_ID;
 exp_data.test_data = XX(num_training+1:end, :);
 exp_data.WTT = WtrueTestTraining;
 exp_data.db_data = XX;
