@@ -68,7 +68,10 @@
 
 检索实例
 
-<p align="center"><img src="./QueryAirplaneResult.jpg" alt="QueryAirplaneResult"/></p>
+<p align="center"><img src="./plot-result/horse_ID8_128_1.png" alt="horse"/></p>
+<p align="center"><img src="./plot-result/horse_ID8_128_2.png" alt="horse"/></p>
+<p align="center"><img src="./plot-result/car_ID13_128_1.png" alt="horse"/></p>
+<p align="center"><img src="./plot-result/car_ID13_128_2.png" alt="horse"/></p>
 
 ## 加入进来 ##
 

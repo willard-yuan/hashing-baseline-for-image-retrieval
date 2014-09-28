@@ -1,5 +1,5 @@
 % Version control:
-%     V1.5 2014/09/26
+%     V1.5 2014/09/28
 %     V1.4 2014/09/16
 %     V1.3 2014/08/21
 %     V1.2 2014/08/16
@@ -13,13 +13,12 @@ addpath('./utils/');
 db_name = 'CIFAR10';
 
 loopnbits = [128];
-query_ID = 8;
+query_ID = 15; % query_ID ranges from 1 to 1000 in cifar10 (8 retrieves horse, 13 retrieves car, 15 horses)
 param.numRetrieval = 25; % Number of returned retrieval images
 param.query_ID = query_ID;
 param.choice = 'visualization';
 
-hashmethods = {'PCA-ITQ', 'PCA-RR', 'LSH', 'PCAH'};
-%hashmethods = {'PCA-ITQ', 'LSH', 'PCAH', 'SH', 'SKLSH', 'PCA-RR', 'DSH'};
+hashmethods = {'PCA-ITQ', 'PCA-RR', 'DSH', 'LSH', 'SKLSH', 'SH', 'PCAH',};
 nhmethods = length(hashmethods);
 
 % load dataset
@@ -89,10 +88,30 @@ for j = 1: nhmethods
         image=uint8(image);
         I2(:, :, :, i) = image;
     end
-    subplot(2, nhmethods, 2*j-1);
-    imshow(I2(:, :, :, 1));
-    title('Query image');
-    subplot(2, nhmethods, 2*j);
+    h =subplot(2, nhmethods, j);
+    queryIm = I2(:, :, :, 1);
+    imshow(queryIm);
+    t = title('Query image');
+    p = get(t,'Position');
+    set(t,'Position',[p(1) p(2)+0.3 p(3)])
+    clear t p;
+    axis equal;
+    
+    p = get(h, 'pos');
+    p(1) = p(1)-0.014 ;
+    p(2) = p(2)-0.05 ;
+    p(3) = p(3)+0.01 ;
+    p(4) = p(4)-0.1 ;
+    set(h, 'pos', p);
+    clear h p;
+    
+    h = subplot(2, nhmethods, j+nhmethods);
+    p = get(h, 'pos');
+    p(1) = p(1)-0.024 ;
+    p(3) = p(3)+0.024 ;
+    p(4) = p(4)+0.4 ;
+    set(h, 'pos', p);
+    clear p h;
     montage(I2(:, :, :, 2:param.numRetrieval+1));
     title(hashmethods{j});
 end
