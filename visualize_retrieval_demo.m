@@ -89,10 +89,10 @@ for j = 1: nhmethods
         image=uint8(image);
         I2(:, :, :, i) = image;
     end
-    subplot(1, 2*nhmethods, 2*j-1);
+    subplot(2, nhmethods, 2*j-1);
     imshow(I2(:, :, :, 1));
     title('Query image');
-    subplot(1, 2*nhmethods, 2*j);
+    subplot(2, nhmethods, 2*j);
     montage(I2(:, :, :, 2:param.numRetrieval+1));
     title(hashmethods{j});
 end
