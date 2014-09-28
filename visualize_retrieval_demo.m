@@ -13,12 +13,12 @@ addpath('./utils/');
 db_name = 'CIFAR10';
 
 loopnbits = [128];
-query_ID = 1;
+query_ID = 8;
 param.numRetrieval = 25; % Number of returned retrieval images
 param.query_ID = query_ID;
 param.choice = 'visualization';
 
-hashmethods = {'PCA-ITQ'};
+hashmethods = {'PCA-ITQ', 'PCA-RR', 'LSH', 'PCAH'};
 %hashmethods = {'PCA-ITQ', 'LSH', 'PCAH', 'SH', 'SKLSH', 'PCA-RR', 'DSH'};
 nhmethods = length(hashmethods);
 
@@ -39,7 +39,7 @@ for i =1:length(loopnbits)
     fprintf('======start %d bits encoding======\n\n', loopnbits(i));
     param.nbits = loopnbits(i);
     for j = 1:nhmethods
-        [~, ~, ~, retrieval_list{i,j}] = demo(exp_data, param, hashmethods{1, j});
+        [~, ~, ~, retrieval_list{i, j}] = demo(exp_data, param, hashmethods{1, j});
     end
 end
 
@@ -71,26 +71,28 @@ clear data labels;
 database=[data1 labels1; data2 labels2; data3 labels3; data4 labels4; data5 labels5; data6 labels6];
 cifar10labels=[labels1; labels2; labels3;labels4; labels5; labels6];
 
-I2 = uint8(zeros(32, 32, 3, 36)); % 32 and 32 are the size of the output image
-
-for i=1:(param.numRetrieval+1)
-    j=retrieval_list{1, 1}(i,1);
-    image_r=database(j,1:1024);
-    image_g=database(j,1025:2048);
-    image_b=database(j, 2049:end-1);
-    image_rer=reshape(image_r, 32, 32);
-    image_reg=reshape(image_g, 32, 32);
-    image_reb=reshape(image_b, 32, 32);
-    image(:, :,1)=image_rer';
-    image(:, :, 2)=image_reg';
-    image(:, :, 3)=image_reb';
-    image=uint8(image);
-    I2(:, :, :, i) = image;
-end
-
 figure('Color', [1 1 1]); hold on;
-subplot(121);
-query = imshow(I2(:, :, :, 1));
-title('Query image');
-subplot(122);
-montage(I2(:, :, :, 2:param.numRetrieval+1));
+
+for j = 1: nhmethods
+    I2 = uint8(zeros(32, 32, 3, 36)); % 32 and 32 are the size of the output image
+    for i=1:(param.numRetrieval+1)
+        index=retrieval_list{1, j}(i,1);
+        image_r=database(index,1:1024);
+        image_g=database(index,1025:2048);
+        image_b=database(index, 2049:end-1);
+        image_rer=reshape(image_r, 32, 32);
+        image_reg=reshape(image_g, 32, 32);
+        image_reb=reshape(image_b, 32, 32);
+        image(:, :,1)=image_rer';
+        image(:, :, 2)=image_reg';
+        image(:, :, 3)=image_reb';
+        image=uint8(image);
+        I2(:, :, :, i) = image;
+    end
+    subplot(1, 2*nhmethods, 2*j-1);
+    imshow(I2(:, :, :, 1));
+    title('Query image');
+    subplot(1, 2*nhmethods, 2*j);
+    montage(I2(:, :, :, 2:param.numRetrieval+1));
+    title(hashmethods{j});
+end
