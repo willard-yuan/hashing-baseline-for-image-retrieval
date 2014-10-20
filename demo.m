@@ -1,4 +1,4 @@
-function [recall, precision, mAP, retrieved_list] = demo(exp_data, param, method)
+function [recall, precision, mAP, rec, retrieved_list] = demo(exp_data, param, method)
 % input: 
 %          data: 
 %              data.train_data
@@ -115,6 +115,21 @@ switch(method)
         clear db_data DSHparam;
      % unsupervised sequential projection learning based hashing
      
+    case 'BPH'
+        addpath('./BPH/');
+        fprintf('......%s start ......\n\n', 'BPH');
+        BPHparam.nbits = param.nbits;
+        BPHparam.ntrain = ntrain;
+        %CMFHparam.lambda = 0.5;
+        BPHparam.lambda = 1;
+        %CMFHparam.gamma = 0.01;
+        BPHparam.gamma = 0.001;
+        BPHparam.mu = 100;
+        BPHparam = trainBPH(train_data, BPHparam);
+        [B_trn, ~] = compressBPH(train_data, BPHparam);
+        [B_tst, ~] = compressBPH(test_data, BPHparam);
+        clear db_data BPHparam; 
+     
      case 'USPLH' % it don't work, the result is error.
         addpath('./USPLH/');
 		fprintf('......%s start...... \n\n', 'USPLH');
@@ -148,6 +163,7 @@ switch(choice)
     case 'evaluation'
         clear train_data test_data;
         [recall, precision, ~] = recall_precision(WtrueTestTraining, Dhamm);
+		[rec]= recall_precision5(WtrueTestTraining, Dhamm); % recall VS. the number of retrieved sample
         [mAP] = area_RP(recall, precision);
         retrieved_list = [];
     case 'visualization'

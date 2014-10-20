@@ -1,4 +1,5 @@
 % Version control:
+%     V1.5 2014/10/20
 %     V1.4 2014/09/16
 %     V1.3 2014/08/21
 %     V1.2 2014/08/16
@@ -16,7 +17,7 @@ param.choice = 'evaluation';
 
 loopnbits = [8 16 32 64 128 256];
 %loopnbits = [32];
-runtimes = 10; % run 8 times to make the rusult more precise
+runtimes = 1; % run 8 times to make the rusult more precise
 
 param.pos = [1000:1000:40000];
 
@@ -25,7 +26,8 @@ load cifar_10yunchao.mat;
 db_datalabel = cifar10;
 db_data = db_datalabel(:, 1:end-1);
 
-hashmethods = {'PCA-ITQ', 'LSH', 'PCAH', 'SH', 'SKLSH', 'PCA-RR', 'DSH'};
+hashmethods = {'PCA-ITQ', 'LSH'};
+%hashmethods = {'PCA-ITQ', 'LSH', 'PCAH', 'SH', 'SKLSH', 'PCA-RR', 'DSH'};
 nhmethods = length(hashmethods);
 
 for k = 1:runtimes
@@ -37,7 +39,7 @@ for k = 1:runtimes
         param.nbits = loopnbits(i);
         param.query_ID = query_ID;
         for j = 1:nhmethods
-            [recall{k}{i, j}, precision{k}{i, j}, mAP{k}{i,j}, ~] = demo(exp_data, param, hashmethods{1, j});
+            [recall{k}{i, j}, precision{k}{i, j}, mAP{k}{i,j}, rec{k}{i, j}, ~] = demo(exp_data, param, hashmethods{1, j});
         end
     end
     clear exp_data;
@@ -84,6 +86,34 @@ end
 str_nbits =  num2str(loopnbits(i));
 h1 = xlabel(['recall @ ', str_nbits, ' bits']);
 h2 = ylabel('precision');
+title(db_name, 'FontSize', title_font_size);
+set(h1, 'FontSize', xy_font_size);
+set(h2, 'FontSize', xy_font_size);
+axis square;
+hleg = legend(hashmethods );
+set(hleg, 'FontSize', legend_font_size);
+set(hleg,'Location', 'best');
+box on;
+grid on;
+hold off;
+
+%% show recall vs. the number of retrieved sample.
+figure('Color', [1 1 1]); hold on;
+i = 1;
+k = 1;
+for j = 1: nhmethods
+    p = plot([0:1000:10000], rec{k}{i, j});
+    color=gen_color(j);
+    marker=gen_marker(j);
+    set(p,'Color', color)
+    set(p,'Marker', marker);
+    set(p,'LineWidth', line_width);
+    set(p,'MarkerSize', marker_size);
+end
+
+str_nbits =  num2str(loopnbits(i));
+h1 = xlabel('the number of retrieved samples');
+h2 = ylabel(['recall @ ', str_nbits, ' bits']);
 title(db_name, 'FontSize', title_font_size);
 set(h1, 'FontSize', xy_font_size);
 set(h2, 'FontSize', xy_font_size);

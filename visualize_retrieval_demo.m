@@ -18,7 +18,8 @@ param.numRetrieval = 25; % Number of returned retrieval images
 param.query_ID = query_ID;
 param.choice = 'visualization';
 
-hashmethods = {'PCA-ITQ', 'PCA-RR', 'DSH', 'LSH', 'SKLSH', 'SH', 'PCAH',};
+hashmethods = {'BPH', 'PCA-RR', 'DSH', 'LSH', 'SKLSH', 'SH', 'PCAH'};
+%hashmethods = {'PCA-ITQ', 'PCA-RR', 'DSH', 'LSH', 'SKLSH', 'SH', 'PCAH'};
 nhmethods = length(hashmethods);
 
 % load dataset
