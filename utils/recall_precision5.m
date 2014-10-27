@@ -1,4 +1,4 @@
-function [recall] = recall_precision5(Wtrue, Dhat)
+function [recall] = recall_precision5(Wtrue, Dhat, pos)
 %
 % Input:
 %    Wtrue = true neighbors [Ntest * Ndataset], can be a full matrix NxN
@@ -14,7 +14,7 @@ function [recall] = recall_precision5(Wtrue, Dhat)
 %  recall(n) = --------------------------------------------------------------
 %                          exp. # of total good pairs 
 
-grid = 0:1000:10000;
+grid = pos;
 for i=1:size(Dhat,1)
     [a,b] = sort(Dhat(i,:),'ascend');
     Wtrue(i,:) = Wtrue(i,b);

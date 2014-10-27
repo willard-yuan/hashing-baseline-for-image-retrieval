@@ -16,7 +16,13 @@ function [recall, precision, mAP, rec, retrieved_list] = demo(exp_data, param, m
 train_data = exp_data.train_data;
 test_data = exp_data.test_data;
 db_data = exp_data.db_data;
+
+train_data_norml = exp_data.train_data_norml;
+test_data_norml = exp_data.test_data_norml;
+db_data_norml = exp_data.db_data_norml;
+
 WtrueTestTraining = exp_data.WTT;
+pos = param.pos;
 
 ID.train = exp_data.train_ID;
 ID.test = exp_data.test_ID;
@@ -163,7 +169,7 @@ switch(choice)
     case 'evaluation'
         clear train_data test_data;
         [recall, precision, ~] = recall_precision(WtrueTestTraining, Dhamm);
-		[rec]= recall_precision5(WtrueTestTraining, Dhamm); % recall VS. the number of retrieved sample
+		[rec]= recall_precision5(WtrueTestTraining, Dhamm, pos); % recall VS. the number of retrieved sample
         [mAP] = area_RP(recall, precision);
         retrieved_list = [];
     case 'visualization'

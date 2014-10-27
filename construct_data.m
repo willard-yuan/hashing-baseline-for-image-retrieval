@@ -47,12 +47,17 @@ XX = (double(XX)-repmat(sampleMean,size(XX,1),1));
 XX_normalized = normalize1(XX);
 
 exp_data.train_data = XX(1:num_training, :);
+exp_data.test_data = XX(num_training+1:end, :);
+exp_data.db_data = XX;
+
 exp_data.train_data_norml = XX_normalized(1:num_training, :);
+exp_data.test_data_norml = XX_normalized(num_training+1:end, :);
+exp_data.db_data_norml = XX_normalized;
+
 exp_data.train_ID = train_ID;
 exp_data.test_ID = test_ID;
-exp_data.test_data = XX(num_training+1:end, :);
-exp_data.test_data_norml = XX_normalized(num_training+1:end, :);
+
 exp_data.WTT = WtrueTestTraining;
-exp_data.db_data = XX;
+
 
 fprintf('constructing %s database has finished\n\n', db_name);

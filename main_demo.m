@@ -17,17 +17,17 @@ param.choice = 'evaluation';
 
 loopnbits = [8 16 32 64 128 256];
 %loopnbits = [32];
-runtimes = 1; % run 8 times to make the rusult more precise
+runtimes = 8; % change 8 times to make the rusult more precise
 
-param.pos = [1000:1000:40000];
+param.pos = [0:1000:10000];
 
 % load dataset
 load cifar_10yunchao.mat;
 db_datalabel = cifar10;
 db_data = db_datalabel(:, 1:end-1);
 
-hashmethods = {'PCA-ITQ', 'LSH'};
-%hashmethods = {'PCA-ITQ', 'LSH', 'PCAH', 'SH', 'SKLSH', 'PCA-RR', 'DSH'};
+%hashmethods = {'PCA-ITQ', 'LSH'};
+hashmethods = {'PCA-ITQ', 'LSH', 'PCAH', 'SH', 'SKLSH', 'PCA-RR', 'DSH'};
 nhmethods = length(hashmethods);
 
 for k = 1:runtimes
@@ -71,8 +71,8 @@ title_font_size=xy_font_size;
 
 %% show precision vs. recall , i is the selection of which bits.
 figure('Color', [1 1 1]); hold on;
-i = 4;
-k = 10;
+i = 1; % i: choose the bits to show
+k = 1; % k is the times of run times
 for j = 1: nhmethods
     p = plot(recall{k}{i, j}, precision{k}{i, j});
     color=gen_color(j);
@@ -102,7 +102,7 @@ figure('Color', [1 1 1]); hold on;
 i = 1;
 k = 1;
 for j = 1: nhmethods
-    p = plot([0:1000:10000], rec{k}{i, j});
+    p = plot(param.pos, rec{k}{i, j});
     color=gen_color(j);
     marker=gen_marker(j);
     set(p,'Color', color)

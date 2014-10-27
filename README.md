@@ -62,6 +62,10 @@
 
 <p align="center"><img src="./plot-result/PR-64bits.png" alt="precision-recall-64bits"/></p>
 
+在8位编码下，召回率随返回样本数曲线如下：
+
+<p align="center"><img src="./plot-result/R-8bits.png" alt="recall-8bits"/></p>
+
 平均检索精度MAP随bits长度的变化
 
 <p align="center"><img src="./plot-result/MAP.png" alt="map-numbers-of-bits"/></p>
