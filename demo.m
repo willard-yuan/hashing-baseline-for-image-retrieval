@@ -121,6 +121,44 @@ switch(method)
         clear db_data DSHparam;
      % unsupervised sequential projection learning based hashing
      
+    case 'CBE-rand'
+        addpath('./CBE/');
+        addpath('./CBE/misc_lib/');
+        addpath('./CBE/circulant/');
+        addpath('./CBE/baselines/');
+        CBEparam.nbits = param.nbits;
+        rand_bit = randperm(D);
+        model = circulant_rand(D);
+        B1 = CBE_prediction(model, train_data_norml);
+        B2 = CBE_prediction(model, test_data_norml);
+        if (CBEparam.nbits < D)
+            B1 = B1 (:, rand_bit(1:CBEparam.nbits));
+            B2 = B2 (:, rand_bit(1:CBEparam.nbits));
+        end
+        B_trn = compactbit(B1>0);
+        B_tst = compactbit(B2>0);
+        
+    case 'CBE-opt'
+        addpath('./CBE/');
+        CBEparam.nbits = param.nbits;
+        train_size = min(size(train_data,1), 5000);
+        if (~isfield(CBEparam, 'lambda'))
+            CBEparam.lambda = 1;
+        end
+        if (~isfield(CBEparam, 'verbose'))
+            CBEparam.verbose = 0;
+        end
+        [~, model] = circulant_learning(double(train_data_norml(1:train_size, :)), CBEparam);
+        B1 = CBE_prediction(model, train_data_norml);
+        B2 = CBE_prediction(model, test_data_norml);
+        if (CBEparam.nbits < D)
+            B1 = B1 (:, 1:CBEparam.nbits);
+            B2 = B2 (:, 1:CBEparam.nbits);
+        end
+        B_trn = compactbit(B1>0);
+        B_tst = compactbit(B2>0);     
+     
+     
     case 'BPH'
         addpath('./BPH/');
         fprintf('......%s start ......\n\n', 'BPH');

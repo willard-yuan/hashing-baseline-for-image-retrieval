@@ -15,9 +15,9 @@ db_name = 'CIFAR10';
 query_ID = 1;
 param.choice = 'evaluation';
 
-loopnbits = [8 16 32 64 128 256];
-%loopnbits = [32];
-runtimes = 8; % change 8 times to make the rusult more precise
+%loopnbits = [8 16 32 64 128 256];
+loopnbits = [32];
+runtimes = 1; % change 8 times to make the rusult more precise
 
 param.pos = [0:1000:10000];
 
@@ -27,7 +27,7 @@ db_datalabel = cifar10;
 db_data = db_datalabel(:, 1:end-1);
 
 %hashmethods = {'PCA-ITQ', 'LSH'};
-hashmethods = {'PCA-ITQ', 'LSH', 'PCAH', 'SH', 'SKLSH', 'PCA-RR', 'DSH'};
+hashmethods = {'CBE-rand', 'CBE-opt', 'PCA-ITQ', 'LSH', 'PCAH', 'SH', 'SKLSH', 'PCA-RR', 'DSH'};
 nhmethods = length(hashmethods);
 
 for k = 1:runtimes

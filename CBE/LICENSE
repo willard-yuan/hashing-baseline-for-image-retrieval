@@ -1,0 +1,30 @@
+Copyright (c) Felix X. Yu
+All Rights Reserved. 
+
+A license to use and copy this software and its documentation solely for your internal 
+research and evaluation  purposes, without fee and without a signed licensing agreement, is hereby granted 
+upon your download of the software, through which you agree to the following: 
+1) the above copyright notice, this paragraph and the following three paragraphs will prominently appear 
+in all internal copies and modifications; 
+2) no rights to sublicense or further distribute this software are granted; 
+3) no rights to modify this software are granted; and 
+4) no rights to assign this license are granted.   
+
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+Please cite our ICML 2014 paper if you use the code in your research.
+
+@inproceedings{yu2014cbe,
+  title={Circulant Binary Embedding},
+  author={Yu, Felix X. and Kumar, Sanjiv and Gong, Yunchao and Chang, Shih-Fu},
+  year={2014},
+  booktitle={International Conference on Machine Learning}
+}
