@@ -215,6 +215,7 @@ switch(choice)
         retrieved_list =  visualization(Dhamm, ID, num, train_data, test_data); 
         recall = [];
         precision = [];
+        rec = [];
         mAP = [];
 end
 
