@@ -7,6 +7,9 @@
 %     V1.0 2013/07/22
 % Author:
 %     yongyuan.name
+% Note: before you run this script, you must download the dataset of
+%       Cifar-10 from http://www.cs.toronto.edu/~kriz/cifar.html, then
+%       untar the dataset.
 
 close all; clear all; clc;
 addpath('./utils/');
