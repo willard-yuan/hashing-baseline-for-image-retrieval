@@ -20,6 +20,7 @@ query_ID = 15; % query_ID ranges from 1 to 1000 in cifar10 (8 retrieves horse, 1
 param.numRetrieval = 25; % Number of returned retrieval images
 param.query_ID = query_ID;
 param.choice = 'visualization';
+param.pos = [0:1000:10000];
 
 hashmethods = {'PCA-ITQ', 'PCA-RR', 'DSH', 'LSH', 'SKLSH', 'SH', 'PCAH'};
 nhmethods = length(hashmethods);
