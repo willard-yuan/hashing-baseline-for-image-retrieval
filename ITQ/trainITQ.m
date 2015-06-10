@@ -22,14 +22,14 @@ R = randn(nbits, nbits);
 R = U11(:, 1: nbits);
 
 % ITQ to find optimal rotation
-for iter=0:50
+for iter = 0:50
     Z = V * R; 
     UX = ones(size(Z,1),size(Z,2)).*-1;  
     UX(Z>=0) = 1; 
     C = UX' * V;
     [UB, sigma, UA] = svd(C);    
     R = UA * UB';
-    %fprintf('iteration %d has finished\r',iter);
+    fprintf('ITQ: iteration %d has finished\r',iter);
 end
 
 % make B binary
@@ -37,3 +37,5 @@ end
 %B(B<0) = 0;
 
 ITQparam.r = R;
+
+fprintf('ITQ training process has finished\r');

@@ -85,6 +85,7 @@ for i = 1 : maxbits
     bitsize(ids) = inf;
     DSHparam.U(i, :) = U(id1, :) - U(id2, :);
     DSHparam.intercept(i, :) = ((U(id1, :) + U(id2, :)) / 2.0) * DSHparam.U(i, :)';
+    fprintf('DSH: iteration %d has finished\r',iter);
 end
 
 res = repmat(DSHparam.intercept', Nsamples, 1); 
@@ -93,4 +94,5 @@ res = repmat(DSHparam.intercept', Nsamples, 1);
 DSHparam.res = res;
 
 %elapse = toc(tmp_T);
+fprintf('DSH training process has finished\r');
 end

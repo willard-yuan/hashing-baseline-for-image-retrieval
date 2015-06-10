@@ -10,3 +10,5 @@ RFparam.R = randn(RFparam.D,RFparam.M)*sqrt(RFparam.gamma);
 RFparam.B = rand(1,RFparam.M) * 2 * pi;
 %RFparam.T = zeros(1,RFparam.M); 
 RFparam.T = (rand(1,RFparam.M) * 2 - 1) * sqrt(2);
+
+fprintf('SKLSH training process has finished\r');

@@ -14,3 +14,5 @@ R = randn(nbits, nbits);
 R = U(:, 1: nbits);
 
 RRparam.r = R;
+
+fprintf('PCA-RR training process has finished\r');

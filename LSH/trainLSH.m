@@ -13,3 +13,5 @@ nbits = LSHparam.nbits;
 W = randn(dim, nbits);
 
 LSHparam.w = W;
+
+fprintf('LSH training process has finished\r');

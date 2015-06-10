@@ -1,4 +1,4 @@
-function [recall, precision, mAP, rec, retrieved_list] = demo(exp_data, param, method)
+function [recall, precision, mAP, rec, pre, retrieved_list] = demo(exp_data, param, method)
 % input: 
 %          data: 
 %              data.train_data
@@ -35,17 +35,29 @@ clear exp_data;
 %several state of art methods
 switch(method)
     %% ITQ method proposed in CVPR11 paper
-    case 'PCA-ITQ'
+    case 'ITQ'
         addpath('./ITQ/');
         addpath('./PCAH/');
 		fprintf('......%s start...... \n\n', 'PCA-ITQ');
         ITQparam.nbits = param.nbits;
         ITQparam =  trainPCAH(db_data, ITQparam);
+        %ITQparam =  trainPCAH(train_data, ITQparam);
         ITQparam = trainITQ(train_data, ITQparam);
         [B_trn, ~] = compressITQ(train_data, ITQparam);
         [B_tst, ~] = compressITQ(test_data, ITQparam);
         %[B_db, ~] = compressITQ(db_data, ITQparam);
         clear db_data ITQparam;
+        
+     case 'SELVE'
+        addpath('./SELVE/');
+		fprintf('......%s start...... \n\n', 'SELVE');
+        SELVEparam.nbits = param.nbits;
+        SELVEparam = initSELVE(train_data, SELVEparam);
+        [B_trn, SELVEparam] = trainSELVE(train_data, SELVEparam);
+        reduTest_data = test_data* SELVEparam.M;
+        [B_tst, ~] = compressSELVE(reduTest_data, SELVEparam);
+        clear db_data SELVEparam;
+        
     % PCA hashing
     case 'PCAH'
         addpath('./PCAH/');
@@ -56,6 +68,7 @@ switch(method)
         [B_tst, ~] = compressPCAH(test_data, PCAHparam);
         %[B_db, ~] = compressPCAH(db_data, PCAHparam);
         clear db_data PCAHparam;
+        
     % RR method proposed in  CVPR11 paper
     case 'PCA-RR'
         addpath('./RR/');
@@ -67,7 +80,8 @@ switch(method)
         [B_trn, ~] = compressRR(train_data, RRparam);
         [B_tst, ~] = compressRR(test_data, RRparam);
         %[B_db, ~] = compressRR(db_data, RRparam);
-        clear db_data RRparam;        
+        clear db_data RRparam;  
+        
    % SKLSH Locality Sensitive Binary Codes from Shift-Invariant Kernels. NIPS 2009.
     case 'SKLSH' 
         addpath('./SKLSH/');
@@ -80,6 +94,7 @@ switch(method)
         B_tst = RF_compress(test_data, RFparam);
         %B_db = RF_compress(db_data, RFparam);
         clear db_data RFparam; 
+        
     % Locality sensitive hashing (LSH)
      case 'LSH'
         addpath('./LSH/');
@@ -91,6 +106,7 @@ switch(method)
         [B_tst, ~] = compressLSH(test_data, LSHparam);
         %[B_db, ~] = compressLSH(db_data, LSHparam);
         clear db_data LSHparam;
+        
      % Spetral hashing
      case 'SH'
         addpath('./SH/');
@@ -102,6 +118,7 @@ switch(method)
         [B_trn, ~] = compressSH(train_data, SHparam);
         [B_tst, ~] = compressSH(test_data, SHparam);
         %[B_db, ~] = compressITQ(db_data, ITQparam);
+        
      % Spherical hashing
      case 'SpH'
         addpath('./SpH/');
@@ -110,6 +127,7 @@ switch(method)
         SpHparam.ntrain = ntrain;
         SpHparam = trainSpH(train_data, SpHparam);
         [B_trn, B_tst] = compressSpH(db_data, SpHparam);
+        
      % Density sensitive hashing
      case 'DSH'
         addpath('./DSH/');
@@ -140,6 +158,9 @@ switch(method)
         
     case 'CBE-opt'
         addpath('./CBE/');
+        addpath('./CBE/misc_lib/');
+        addpath('./CBE/circulant/');
+        addpath('./CBE/baselines/');
         CBEparam.nbits = param.nbits;
         train_size = min(size(train_data,1), 5000);
         if (~isfield(CBEparam, 'lambda'))
@@ -156,23 +177,10 @@ switch(method)
             B2 = B2 (:, 1:CBEparam.nbits);
         end
         B_trn = compactbit(B1>0);
-        B_tst = compactbit(B2>0);     
-     
-     
-    case 'BPH'
-        addpath('./BPH/');
-        fprintf('......%s start ......\n\n', 'BPH');
-        BPHparam.nbits = param.nbits;
-        BPHparam.ntrain = ntrain;
-        %CMFHparam.lambda = 0.5;
-        BPHparam.lambda = 1;
-        %CMFHparam.gamma = 0.01;
-        BPHparam.gamma = 0.001;
-        BPHparam.mu = 100;
-        BPHparam = trainBPH(train_data, BPHparam);
-        [B_trn, ~] = compressBPH(train_data, BPHparam);
-        [B_tst, ~] = compressBPH(test_data, BPHparam);
-        clear db_data BPHparam; 
+        B_tst = compactbit(B2>0); 
+        
+     case 'Our Method'
+        addpath('./Our Method/');    % your method can be writen here
      
      case 'USPLH' % it don't work, the result is error.
         addpath('./USPLH/');
@@ -186,6 +194,7 @@ switch(method)
         [B_tst, ~] = compressUSPLH(test_data, USPLHparam);
         %[B_db, ~] = compressUSPLH(db_data, USPLHparam);
         clear db_data USPLparam;
+        
      case 'BRE' % it runs too much slow, and I don't get the result.
         addpath('./BRE/');
         addpath('./PCAH/');
@@ -207,7 +216,7 @@ switch(choice)
     case 'evaluation'
         clear train_data test_data;
         [recall, precision, ~] = recall_precision(WtrueTestTraining, Dhamm);
-		[rec]= recall_precision5(WtrueTestTraining, Dhamm, pos); % recall VS. the number of retrieved sample
+		[rec, pre]= recall_precision5(WtrueTestTraining, Dhamm, pos); % recall VS. the number of retrieved sample
         [mAP] = area_RP(recall, precision);
         retrieved_list = [];
     case 'visualization'
@@ -216,6 +225,7 @@ switch(choice)
         recall = [];
         precision = [];
         rec = [];
+        pre = [];
         mAP = [];
 end
 

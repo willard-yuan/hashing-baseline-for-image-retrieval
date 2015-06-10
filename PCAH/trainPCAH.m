@@ -12,3 +12,5 @@ function PCAHparam = trainPCAH(X, PCAHparam)
 npca = PCAHparam.nbits;
 [pc, ~] = eigs(cov(X), npca);
 PCAHparam.pcaW = pc; % no need to remove the mean
+
+fprintf('PCAH training process has finished\r');

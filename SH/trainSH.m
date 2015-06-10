@@ -42,6 +42,7 @@ m = 1;
 for i=1:npca
     modes(m+1:m+maxMode(i)-1,i) = 2:maxMode(i);
     m = m+maxMode(i)-1;
+    fprintf('SH: iteration %d has finished\r',i);
 end
 modes = modes - 1;
 omega0 = pi./R;
@@ -50,10 +51,10 @@ eigVal = -sum(omegas.^2,2);
 [yy,ii]= sort(-eigVal);
 modes=modes(ii(2:nbits+1),:);
 
-
 % 4) store paramaters
 SHparam.pc = pc;
 SHparam.mn = mn;
 SHparam.mx = mx;
 SHparam.mx = mx;
 SHparam.modes = modes;
+fprintf('SH training process has finished\r');

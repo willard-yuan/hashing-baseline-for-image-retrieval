@@ -43,12 +43,13 @@ while true
         fprintf('iter exceed 100, avg = %f, stddev = %f\n', avg, stddev);
     end
     
+    fprintf('SpH: iteration %d has finished\r',iter);
     iter = iter + 1;
 end
-fprintf('iteration = %d\n', iter);
 
 SpHparam.centers = centers;
 SpHparam.radii = radii;
+fprintf('SpH training process has finished\r');
 
 end
 
