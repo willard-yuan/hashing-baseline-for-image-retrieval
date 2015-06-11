@@ -69,6 +69,7 @@ V2.0版本演示结果如下，左边为Precision-Recall曲线，中间为Recall
 <p align="center">图7：8位编码</p>
 <p align="center"><img src="./doc/together_png/mAP.png" alt="precision-recall-64bits"/></p>
 <p align="center">图8：不同编码位下mAP曲线(run times = 1)</p>
+**Tips**：为了对图片进行润色，推荐你用Adobe Illustrator对其进行处理使得其更加美观。
 
 ###V1.x版本结果演示
 V1.x版本演示结果如下，在64位编码下，查准率与召回率曲线如下：
