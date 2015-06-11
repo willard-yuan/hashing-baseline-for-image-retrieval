@@ -25,8 +25,8 @@ gist\_320d\_CIFAR-10\_yunchao下载地址：[gist_320d_CIFAR-10_yunchao.mat](htt
 2.运行脚本。该工具箱有三个可执行的脚本，各脚本对应功能如下：
 
 - main_demo.m: 主要脚本文件，This is the main script ufor evaluate the performance,  and you can get Precision-Recall curve, mean Average Precision (mAP) curves,  Recall-The number of retrieved samples curve, Precision-The number of retrieved samples curve.(偷点懒，把脚本中我写的英文注释拿过来)
-- visualize_retrieval_demo.m：检索可视化脚本文件，主要用来对不同的查询结果进行检索可视化。
-- cifar10_10class_visualization.m：可视化CIFAR-10数据库上的图像，官网上CIFAR-10数据库提供的是保存为像素值的mat文件，用该脚本你可以对该数据库上的图像进行可视化。
+- visualize\_retrieval_demo.m：检索可视化脚本文件，主要用来对不同的查询结果进行检索可视化（**该脚本还在整理中**）。
+- cifar10_10class\_visualization.m：可视化CIFAR-10数据库上的图像，官网上CIFAR-10数据库提供的是保存为像素值的mat文件，用该脚本你可以对该数据库上的图像进行可视化。
 
 
 ###收录进HABIR哈希图像检索工具箱的哈希方法
@@ -68,7 +68,7 @@ V2.0版本演示结果如下，左边为Precision-Recall曲线，中间为Recall
 <p align="center"><img src="./doc/together_png/8bits.png" alt="precision-recall-64bits"/></p>
 <p align="center">图7：8位编码</p>
 <p align="center"><img src="./doc/together_png/mAP.png" alt="precision-recall-64bits"/></p>
-<p align="center">图8：不同编码位下mAP曲线(run time = 1)</p>
+<p align="center">图8：不同编码位下mAP曲线(run times = 1)</p>
 
 ###V1.x版本结果演示
 V1.x版本演示结果如下，在64位编码下，查准率与召回率曲线如下：
@@ -102,9 +102,9 @@ V1.x版本演示结果如下，在64位编码下，查准率与召回率曲线�
     - 修复画MAP曲线的错误，重新以Gong Yunchao所用的计算曲线面积的方法画MAP曲线
 	- 将原来画曲线时只运行一次改为运行多次（10次，程序中可以自己修改设定），对10次的MAP取平均，之所以这样做是因为不同的方法中用到了随机函数，通过运行多次减少每次运行结果的差异
 -  V1.3   2014/08/21
-	- 完成MAP随bits长度的曲线，添加进来SpH和DSH
-	- 完善绘制的图，使画出的图更美观
-	- 优化框架结构，使布局更有层次
+	- 完成MAP随bits长度的曲线，添加进来SpH和DSH。
+	- 完善绘制的图，使画出的图更美观。
+	- 优化框架结构，使布局更有层次。
 -  V1.2   成型版本: 2014/08/16---2014/08/19
 -  V1.1   初始版本: 2013/09/26
 -  V1.0   原型版本: 2013/07/22
