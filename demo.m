@@ -216,7 +216,7 @@ switch(choice)
     case 'evaluation'
         clear train_data test_data;
         [recall, precision, ~] = recall_precision(WtrueTestTraining, Dhamm);
-		[rec, pre]= recall_precision5(WtrueTestTraining, Dhamm, pos); % recall VS. the number of retrieved sample
+	[rec, pre]= recall_precision5(WtrueTestTraining, Dhamm, pos); % recall VS. the number of retrieved sample
         [mAP] = area_RP(recall, precision);
         retrieved_list = [];
     case 'visualization'
