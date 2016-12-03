@@ -16,12 +16,9 @@ function [recall, precision, mAP, rec, pre, retrieved_list] = demo(exp_data, par
 train_data = exp_data.train_data;
 test_data = exp_data.test_data;
 db_data = exp_data.db_data;
+trueRank = exp_data.knn_p2;
 
-train_data_norml = exp_data.train_data_norml;
-test_data_norml = exp_data.test_data_norml;
-db_data_norml = exp_data.db_data_norml;
-
-WtrueTestTraining = exp_data.WTT;
+%WtrueTestTraining = exp_data.WTT;
 pos = param.pos;
 
 ID.train = exp_data.train_ID;
@@ -36,20 +33,42 @@ clear exp_data;
 switch(method)
     %% ITQ method proposed in CVPR11 paper
     case 'ITQ'
-        addpath('./ITQ/');
-        addpath('./PCAH/');
+        addpath('./Method-ITQ/');
+        addpath('./Method-PCAH/');
 		fprintf('......%s start...... \n\n', 'PCA-ITQ');
         ITQparam.nbits = param.nbits;
-        ITQparam =  trainPCAH(db_data, ITQparam);
-        %ITQparam =  trainPCAH(train_data, ITQparam);
+        %ITQparam =  trainPCAH(db_data, ITQparam);
+        ITQparam =  trainPCAH(train_data, ITQparam);
         ITQparam = trainITQ(train_data, ITQparam);
         [B_trn, ~] = compressITQ(train_data, ITQparam);
         [B_tst, ~] = compressITQ(test_data, ITQparam);
         %[B_db, ~] = compressITQ(db_data, ITQparam);
         clear db_data ITQparam;
         
+    % SGH hashing
+    case 'SGH'
+        addpath('./Method-SGH/');
+		fprintf('......%s start...... \n\n', 'SGH');
+        %sample = randperm(ndata);
+        % Kernel parameter
+        s = RandStream('mt19937ar','Seed',0);
+        sample = randperm(s, ntrain);
+        m = 300;
+        bases = train_data(sample(1:m),:);
+        SGHparam.nbits = param.nbits;
+        [Wx, KXTrain, para] = trainSGH(train_data, bases,SGHparam.nbits);
+        B_trn = (KXTrain*Wx > 0);
+        % construct KXTest
+        KTest = distMat(test_data,bases);
+        KTest = KTest.*KTest;
+        KTest = exp(-KTest/(2*para.delta));
+        [num_testing, D] = size(test_data);
+        KXTest = KTest-repmat(para.bias,num_testing,1);
+        B_tst = (KXTest*Wx > 0);
+        clear db_data SGHparam;
+        
      case 'SELVE'
-        addpath('./SELVE/');
+        addpath('./Method-SELVE/');
 		fprintf('......%s start...... \n\n', 'SELVE');
         SELVEparam.nbits = param.nbits;
         SELVEparam = initSELVE(train_data, SELVEparam);
@@ -60,7 +79,7 @@ switch(method)
         
     % PCA hashing
     case 'PCAH'
-        addpath('./PCAH/');
+        addpath('./Method-PCAH/');
 		fprintf('......%s start...... \n\n', 'PCAH');
         PCAHparam.nbits = param.nbits;
         PCAHparam = trainPCAH(db_data, PCAHparam);
@@ -71,8 +90,8 @@ switch(method)
         
     % RR method proposed in  CVPR11 paper
     case 'PCA-RR'
-        addpath('./RR/');
-        addpath('./PCAH/');
+        addpath('./Method-RR/');
+        addpath('./Method-PCAH/');
 		fprintf('......%s start...... \n\n', 'PCA-RR');
         RRparam.nbits = param.nbits;
         RRparam =  trainPCAH(db_data, RRparam);
@@ -84,7 +103,7 @@ switch(method)
         
    % SKLSH Locality Sensitive Binary Codes from Shift-Invariant Kernels. NIPS 2009.
     case 'SKLSH' 
-        addpath('./SKLSH/');
+        addpath('./Method-SKLSH/');
 		fprintf('......%s start......\n\n', 'SKLSH');
         RFparam.gamma = 1; 
         RFparam.D = D; 
@@ -97,7 +116,7 @@ switch(method)
         
     % Locality sensitive hashing (LSH)
      case 'LSH'
-        addpath('./LSH/');
+        addpath('./Method-LSH/');
 		fprintf('......%s start ......\n\n', 'LSH');
         LSHparam.nbits = param.nbits;
         LSHparam.dim = D;
@@ -109,8 +128,8 @@ switch(method)
         
      % Spetral hashing
      case 'SH'
-        addpath('./SH/');
-        addpath('./PCAH/');
+        addpath('./Method-SH/');
+        addpath('./Method-PCAH/');
 		fprintf('......%s start...... \n\n', 'SH');
         SHparam.nbits = param.nbits;
         SHparam =  trainPCAH(db_data, SHparam);
@@ -121,7 +140,7 @@ switch(method)
         
      % Spherical hashing
      case 'SpH'
-        addpath('./SpH/');
+        addpath('./Method-SpH/');
 		fprintf('......%s start ......\n\n', 'SpH');
         SpHparam.nbits = param.nbits;
         SpHparam.ntrain = ntrain;
@@ -130,7 +149,7 @@ switch(method)
         
      % Density sensitive hashing
      case 'DSH'
-        addpath('./DSH/');
+        addpath('./Method-DSH/');
 		fprintf('......%s start ......\n\n', 'DSH');
         DSHparam.nbits = param.nbits;
         DSHparam = trainDSH(train_data, DSHparam);
@@ -140,15 +159,15 @@ switch(method)
      % unsupervised sequential projection learning based hashing
      
     case 'CBE-rand'
-        addpath('./CBE/');
-        addpath('./CBE/misc_lib/');
-        addpath('./CBE/circulant/');
-        addpath('./CBE/baselines/');
+        addpath('./Method-CBE/');
+        addpath('./Method-CBE/misc_lib/');
+        addpath('./Method-CBE/circulant/');
+        addpath('./Method-CBE/baselines/');
         CBEparam.nbits = param.nbits;
         rand_bit = randperm(D);
         model = circulant_rand(D);
-        B1 = CBE_prediction(model, train_data_norml);
-        B2 = CBE_prediction(model, test_data_norml);
+        B1 = CBE_prediction(model, train_data);
+        B2 = CBE_prediction(model, test_data);
         if (CBEparam.nbits < D)
             B1 = B1 (:, rand_bit(1:CBEparam.nbits));
             B2 = B2 (:, rand_bit(1:CBEparam.nbits));
@@ -157,10 +176,10 @@ switch(method)
         B_tst = compactbit(B2>0);
         
     case 'CBE-opt'
-        addpath('./CBE/');
-        addpath('./CBE/misc_lib/');
-        addpath('./CBE/circulant/');
-        addpath('./CBE/baselines/');
+        addpath('./Method-CBE/');
+        addpath('./Method-CBE/misc_lib/');
+        addpath('./Method-CBE/circulant/');
+        addpath('./Method-CBE/baselines/');
         CBEparam.nbits = param.nbits;
         train_size = min(size(train_data,1), 5000);
         if (~isfield(CBEparam, 'lambda'))
@@ -169,9 +188,9 @@ switch(method)
         if (~isfield(CBEparam, 'verbose'))
             CBEparam.verbose = 0;
         end
-        [~, model] = circulant_learning(double(train_data_norml(1:train_size, :)), CBEparam);
-        B1 = CBE_prediction(model, train_data_norml);
-        B2 = CBE_prediction(model, test_data_norml);
+        [~, model] = circulant_learning(double(train_data(1:train_size, :)), CBEparam);
+        B1 = CBE_prediction(model, train_data);
+        B2 = CBE_prediction(model, test_data);
         if (CBEparam.nbits < D)
             B1 = B1 (:, 1:CBEparam.nbits);
             B2 = B2 (:, 1:CBEparam.nbits);
@@ -180,10 +199,70 @@ switch(method)
         B_tst = compactbit(B2>0); 
         
      case 'Our Method'
-        addpath('./Our Method/');    % your method can be writen here
+        addpath('./Method-Our Method/');
+        addpath('./Method-PCAH/');
+        fprintf('......%s start...... \n\n', 'ITQT');
+        ITQTparam.nbits = param.nbits;
+        ITQTparam =  trainPCAH(db_data, ITQTparam);
+        ITQTparam = trainITQT(train_data, ITQTparam);
+        %[B_trn, ~] = compressITQT(train_data, ITQTparam);
+        B_trn = ITQTparam.B;
+        [B_tst, ~] = compressITQT(test_data, ITQTparam);
+        %[B_db, ~] = compressITQ(db_data, ITQparam);
+        clear db_data ITQTparam; 
+     
+    case 'BPH'
+        addpath('./Method-BPH/');
+        fprintf('......%s start ......\n\n', 'BPH');
+        BPHparam.nbits = param.nbits;
+        BPHparam.ntrain = ntrain;
+        %CMFHparam.lambda = 0.5;
+        BPHparam.lambda = 1;
+        %CMFHparam.gamma = 0.01;
+        BPHparam.gamma = 0.001;
+        BPHparam.mu = 100;
+        BPHparam = trainBPH(train_data, BPHparam);
+        [B_trn, ~] = compressBPH(train_data, BPHparam);
+        [B_tst, ~] = compressBPH(test_data, BPHparam);
+        clear db_data BPHparam; 
+        
+     case 'MFH'
+        addpath('./Method-MFH/');
+		fprintf('......%s start ......\n\n', 'MFH');
+        MFHparam.nbits = param.nbits;
+        MFHparam.ntrain = ntrain;
+        %CMFHparam.lambda = 0.5;
+        MFHparam.lambda = 1;
+        %CMFHparam.gamma = 0.01;
+        MFHparam.gamma = 0.001;
+        MFHparam.mu = 100;
+        MFHparam = trainMFH(train_data, MFHparam);
+        [B_trn, ~] = compressMFH(train_data, MFHparam);
+        [B_tst, ~] = compressMFH(test_data, MFHparam);
+        clear train_data test_data db_data MFHparam;
+        
+      case 'MFH'
+        addpath('./Method-MFH/');
+		fprintf('......%s start ......\n\n', 'MFH');
+        MFHparam.nbits = param.nbits;
+        MFHparam.ntrain = ntrain;
+        %CMFHparam.lambda = 0.5;
+        MFHparam.lambda = 1;
+        %CMFHparam.gamma = 0.01;
+        MFHparam.gamma = 0.001;
+        MFHparam.mu = 100;
+        MFHparam = trainMFH(train_data, MFHparam);
+        addpath('./Method-LSH/');
+		fprintf('......%s start ......\n\n', 'LSH');
+        LSHparam.nbits = param.nbits;
+        LSHparam.dim = D;
+        LSHparam = trainLSH(LSHparam);        
+        [B_trn, ~] = compressMFHH(train_data, MFHparam, LSHparam);
+        [B_tst, ~] = compressMFHH(test_data, MFHparam, LSHparam);
+        clear train_data test_data db_data MFHparam;
      
      case 'USPLH' % it don't work, the result is error.
-        addpath('./USPLH/');
+        addpath('./Method-USPLH/');
 		fprintf('......%s start...... \n\n', 'USPLH');
         USPLHparam.nbits = param.nbits;
         USPLHparam.c_num=2000;% this parameter is for the number of pseduo pair-wise labels
@@ -196,8 +275,8 @@ switch(method)
         clear db_data USPLparam;
         
      case 'BRE' % it runs too much slow, and I don't get the result.
-        addpath('./BRE/');
-        addpath('./PCAH/');
+        addpath('./Method-BRE/');
+        addpath('./Method-PCAH/');
 		fprintf('......%s start...... \n\n', 'BRE');
         BREparam.nbits = param.nbits;
         BREparam =  trainPCAH(db_data, BREparam);
@@ -210,14 +289,24 @@ end
 
 % compute Hamming metric and compute recall precision
 Dhamm = hammingDist(B_tst, B_trn);
+[~, rank] = sort(Dhamm, 2, 'ascend');
 clear B_tst B_trn;
 choice = param.choice;
 switch(choice)
     case 'evaluation'
         clear train_data test_data;
         [recall, precision, ~] = recall_precision(WtrueTestTraining, Dhamm);
-	[rec, pre]= recall_precision5(WtrueTestTraining, Dhamm, pos); % recall VS. the number of retrieved sample
+		[rec, pre]= recall_precision5(WtrueTestTraining, Dhamm, pos); % recall VS. the number of retrieved sample
         [mAP] = area_RP(recall, precision);
+        retrieved_list = [];
+    case 'evaluationO'
+        clear train_data test_data;
+        eva_info = eva_ranking(rank, trueRank, pos);
+        rec = eva_info.recall;
+        pre = eva_info.precision;
+        recall = [];
+        precision = [];
+        mAP = [];
         retrieved_list = [];
     case 'visualization'
         num = param.numRetrieval;

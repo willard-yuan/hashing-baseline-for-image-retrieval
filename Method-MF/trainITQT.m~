@@ -1,0 +1,69 @@
+function [Utest, Vtest] = trainITQT(X)
+
+% Input:
+%          X: n*d, n is the number of images
+%          ITQparam:
+%                           ITQparam.pcaW---PCA of all the database
+%                           ITQparam.nbits---encoding length
+% Output:
+%             ITQparam:
+%                              ITQparam.pcaW---PCA of all the database
+%                              ITQparam.nbits---encoding length
+%                              ITQparam.r---ITQ rotation projection
+
+
+gamma =0.0001;
+
+lambda = 0.001;
+
+iter = 1;
+lastF = 99999999;
+threshold = 0.001;
+
+[n, d] = size(X);
+
+%V = rand(bits, ntrain);
+
+% initialize with a orthogonal random rotation
+
+d = 128;
+
+U = randn(n, d);
+
+%V = randn(d, d);
+
+% ITQ to find optimal rotation
+while (true)
+    
+    V = (U'*U+gamma*eye(d))\(U'*X);
+    
+    U = (X*V')/(V*V'+lambda*eye(d));
+    
+%     U = (X*V')/(V*V'+lambda*eye(d)); % this is not good
+%     V = (U'*U+gamma*eye(d))\(U'*X);
+    
+   
+    
+    % compute objective function
+    norm1 = norm(X - U * V, 'fro');
+    norm2 = lambda * norm(U, 'fro') + gamma * norm(V, 'fro');
+    currentF= norm1 + norm2;
+    
+    fprintf('\nobj at iteration %d: %.4f\n reconstruction error for matrix factorization: %.4f,\n regularization term: %.4f\n\n', iter, currentF, norm1 , norm2);
+    if (lastF - currentF) < threshold
+        fprintf('algorithm converges...\n');
+        fprintf('final obj: %.4f\n reconstruction error for matrix factorization: %.4f, \n regularization term: %.4f\n\n', currentF,norm1, norm2);        
+        
+        Utest = U;
+        Vtest = V;
+        return
+    end
+    iter = iter + 1;
+    lastF = currentF;
+end
+
+% make B binary
+%B = UX;
+%B(B<0) = 0;
+
+%ITQTparam.r = R;

@@ -1,4 +1,4 @@
-function [X] = normalize(X)
+function [X] = normalize1(X)
 
 for i=1:size(X,1)
     if(norm(X(i,:))==0)

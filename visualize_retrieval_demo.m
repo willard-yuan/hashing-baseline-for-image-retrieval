@@ -160,7 +160,7 @@ switch(db_name)
             I2 = uint8(zeros(100, 103, 3, 26)); % 32 and 32 are the size of the output image
             for i=1:(param.numRetrieval+1)
                 index = retrieval_list{1, j}(i,1);
-                imName_path=['J:\Ô¬ÓÂ\E\database\256_ObjectCategories\', allNames{1, index}];
+                imName_path=['J:\Ԭ��\E\database\256_ObjectCategories\', allNames{1, index}];
                 %imName_path=['256_ObjectCategories/', allNames{1, index}];
                 im = imread(imName_path);
                 im = imresize(im, [100 100]);

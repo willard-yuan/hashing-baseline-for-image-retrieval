@@ -1,9 +1,5 @@
-% Author:
-%     github: @willard-yuan
-%     yongyuan.name
-
-%method = 'show-in-random';
-method = 'show-in-class';
+%Author: Yong Yuan;
+%Homepage: yongyuan.name
 
 % load cifar-10 dataset
 load cifar-10-batches-mat/data_batch_1.mat;
@@ -32,6 +28,9 @@ labels6=labels;
 clear data labels;
 database = [data1 labels1; data2 labels2; data3 labels3; data4 labels4; data5 labels5; data6 labels6];
 cifar10labels = [labels1; labels2; labels3;labels4; labels5; labels6];
+
+%method = 'show-in-random';
+method = 'show-in-class';
 
 switch(method)
     %% sort in class
