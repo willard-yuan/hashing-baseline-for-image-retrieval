@@ -110,6 +110,50 @@ V1.x版本演示结果如下，在64位编码下，查准率与召回率曲线�
 -  V1.1   初始版本: 2013/09/26
 -  V1.0   原型版本: 2013/07/22
 
+### 引用
+
+如果觉得这个工具包对你有用，可以对我做过的一些工作进行对应的引用，我会非常的感谢：
+
+Latent Semantic Minimal Hashing for Image Retrieval， 研三期间自己写的一篇期刊文章：
+
+```latex
+@article{lu2016latent,
+  title={Latent Semantic Minimal Hashing for Image Retrieval},
+  author={Lu, Xiaoqiang and Zheng, Xiangtao and Li, Xuelong},
+  journal={IEEE Transactions on Image Processing},
+  year={2016},
+  publisher={IEEE}
+}
+```
+
+Learning hash functions using sparse reconstruction，研二期间自己写的一篇会议文章：
+
+```latex
+@inproceedings{yuan2014learning,
+  title={Learning hash functions using sparse reconstruction},
+  author={Yuan, Yong and Lu, Xiaoqiang and Li, Xuelong},
+  booktitle={Proceedings of International Conference on Internet Multimedia Computing and Service},
+  pages={14},
+  year={2014},
+  organization={ACM}
+}
+```
+
+Compact Structure Hashing via Sparse and Similarity Preserving Embedding, 研一期间向该论文贡献全部实验的一篇期刊文章：
+
+```latex
+@article{ye2016compact,
+  title={Compact Structure Hashing via Sparse and Similarity Preserving Embedding},
+  author={Ye, Renzhen and Li, Xuelong},
+  journal={IEEE transactions on cybernetics},
+  volume={46},
+  number={3},
+  pages={718--729},
+  year={2016},
+  publisher={IEEE}
+}
+```
+
 ###加入进来
 
 如果你觉得这个对你有用，想加入进来的话，可以先clone过去，然后再Pull Requests.
