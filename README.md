@@ -1,10 +1,10 @@
-###HABIR哈希图像检索工具箱是什么？
+### HABIR哈希图像检索工具箱是什么？
 HABIR哈希图像检索工具箱是一个用Matlab语言写的集成了经典哈希方法以及最近几年无监督哈希方法的基准框架，里面包含了针对图像检索的主流评价指标，使用该工具箱使得你可以专注于哈希方法的设计，其他性能评价这些方面的东西可以由它来帮你完成。
 
-###为什么会有HABIR哈希图像检索工具箱？
+### 为什么会有HABIR哈希图像检索工具箱？
 目前我主要致力于大规模图像检索研究，在图像检索中除了专注与duplicate search外我也花很大力气在哈希大规模图像检索上。在研究的过程中，我发觉几乎很少有研究者提供不同对比方法的代码。这为研究带来了很大不便，而且我坚信在研究的过程中，我们应专注于新算法的设计，而不是新人进来时都得重新造轮子，我们可以在现有代码的基础上学习它，并将它进行拓展，为自己使用。于是，就有了你现在看到的这个[hashing-baseline-for-image-retrieval](https://github.com/willard-yuan/hashing-baseline-for-image-retrieval)，希望它能够为关注基于哈希方法进行图像检索的小伙伴们带去些许帮助。如果想深入了解哈希的话，这里总结的一篇博文对你非常的有帮助：[**Hashing图像检索源码及数据库总结**](http://yongyuan.name/blog/codes-of-hash-for-image-retrieval.html)
 
-###怎样使用HABIR哈希图像检索工具箱？
+### 怎样使用HABIR哈希图像检索工具箱？
 1. 下载数据库。在本地计算机上，HABIR的文件目录结构如下图所示：
 <p align="center"><img src="./doc/downfiles.png" alt="precision-recall-64bits"/></p>
 <p align="center">图1 工具包目录</p>
@@ -29,7 +29,7 @@ gist\_320d\_CIFAR-10\_yunchao下载地址：[gist_320d_CIFAR-10_yunchao.mat](htt
 - cifar10_10class\_visualization.m：可视化CIFAR-10数据库上的图像，官网上CIFAR-10数据库提供的是保存为像素值的mat文件，用该脚本你可以对该数据库上的图像进行可视化。
 
 
-###收录进HABIR哈希图像检索工具箱的哈希方法
+### 收录进HABIR哈希图像检索工具箱的哈希方法
 - **PCA-ITQ**,**PCA-RR**: Iterative Quantization. 作者建立的项目详细信息请移步这里：[ITQ](http://www.unc.edu/~yunchao/itq.htm)。
 >Yunchao Gong and Svetlana Lazebnik.  Iterative Quantization: A Procrustean Approach to Learning Binary Codes. In: IEEE International Conference on Computer Vision and Pattern Recognition (CVPR), 2011.
 
@@ -55,7 +55,7 @@ gist\_320d\_CIFAR-10\_yunchao下载地址：[gist_320d_CIFAR-10_yunchao.mat](htt
 
 **Note**:如果你要将SELVE加入对比中的话，请保持你的Matlab版本在2012及其以下，**非常重要**。
 
-###V2.0版本结果演示
+### V2.0版本结果演示
 V2.0版本演示结果如下，左边为Precision-Recall曲线，中间为Recall-The number of retrieved samples曲线，右边为Precision-The number of retrieved samples曲线：
 <p align="center"><img src="./doc/together_png/128bits.png" alt="precision-recall-64bits"/></p>
 <p align="center">图3: 128位编码</p>
@@ -71,7 +71,7 @@ V2.0版本演示结果如下，左边为Precision-Recall曲线，中间为Recall
 <p align="center">图8：不同编码位下mAP曲线(run times = 1)</p>
 **Tips**：为了对图片进行润色，推荐你用Adobe Illustrator对其进行处理使得其更加美观。
 
-###V1.x版本结果演示
+### V1.x版本结果演示
 V1.x版本演示结果如下，在64位编码下，查准率与召回率曲线如下：
 
 <p align="center"><img src="./doc/v1/PR-64bits.png" alt="precision-recall-64bits"/></p>
@@ -91,11 +91,15 @@ V1.x版本演示结果如下，在64位编码下，查准率与召回率曲线�
 <p align="center"><img src="./doc/v1/car_ID13_128_1.png" alt="horse"/></p>
 <p align="center"><img src="./doc/v1/car_ID13_128_2.png" alt="horse"/></p>
 
-###运行环境
+### 运行环境
 
 - Matlab
 
-###版本更新
+### 需要注意的地方
+
+关于SELVE运行过程中，如果出现`Error using eigs/checkInputs (line 567)`这样的错误，可以参阅[Notice in SELVE](https://github.com/willard-yuan/hashing-baseline-for-image-retrieval/issues/6)的说明，感谢@xysoul。
+
+### 版本更新
 -  V2.0   2015/06/10
     - 相比于1.x版，该版本做了较大的更新，添加了新的评价指标，基本涵盖了论文中常用的上面提到的4种指标。
 	- 对框架做了一些调整，并添加了2014年相关论文的方法。
@@ -154,6 +158,6 @@ Compact Structure Hashing via Sparse and Similarity Preserving Embedding, 研一
 }
 ```
 
-###加入进来
+### 贡献
 
 如果你觉得这个对你有用，想加入进来的话，可以先clone过去，然后再Pull Requests.
