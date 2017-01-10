@@ -13,12 +13,12 @@ HABIR哈希图像检索工具箱是一个用Matlab语言写的集成了经典哈
 
 可以看到这四个特征文件比较大，这4个文件可以到下面给出的链接中下载，下载完请按图1目录放置。
 
-cnn\_1024d\_Caltech-256下载地址：[cnn_1024d_Caltech-256.mat](http://pan.baidu.com/s/1o67k5RG)</br>
-gist\_512d\_Caltech-256下载地址：[gist_512d_Caltech-256.mat](http://pan.baidu.com/s/1jG8ECZW)</br>
-cnn\_4096d\_Caltech-256下载地址：[cnn_4096d_Caltech-256.mat](http://pan.baidu.com/s/1eQIWkro)</br>
-gist\_320d\_CIFAR-10\_yunchao下载地址：[gist_320d_CIFAR-10_yunchao.mat](http://pan.baidu.com/s/1o61KSQI)</br>
+`256feat4096Norml.mat`下载地址：[256feat4096Norml.mat](https://pan.baidu.com/s/1eSHXCKa)</br>
+`Cifar10-Gist512.mat`下载地址：[Cifar10-Gist512.mat](https://pan.baidu.com/s/1o877VXC)</br>
+`Caltech256-CNN1024dNorml.mat`下载地址：[Caltech256-CNN1024dNorml.mat](https://pan.baidu.com/s/1pLbbU0V)</br>
+`cifar_10yunchao.mat`下载地址：[cifar_10yunchao.mat](https://pan.baidu.com/s/1dE2QwjZ)</br>
 
-另外一个比较大的文件是[CIFAR-10](http://www.cs.toronto.edu/~kriz/cifar.html)数据库，这个图像数据库请到官网下载对应的Matlab版，解压后按图2放置。
+将下载的数据放在`DB-FeaturesToBeProcessing`文件夹中。另外一个比较大的文件是[CIFAR-10](http://www.cs.toronto.edu/~kriz/cifar.html)数据库，这个图像数据库请到官网下载对应的Matlab版，解压后按图2放置。
 
 **Note**:对于CNN特征的提取，可以使用我写的一个采用VGG训练已模型提取CNN特征的代码，[CNN-for-Image-Retrieval](https://github.com/willard-yuan/CNN-for-Image-Retrieval)。
 
