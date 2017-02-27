@@ -53,6 +53,8 @@ HABIR哈希图像检索工具箱是一个用Matlab语言写的集成了经典哈
 - **SELVE**: Sparse Embedding and Least Variance Encoding
 >X. Zhu, L. Zhang and Z. Huang, "A Sparse Embedding and Least Variance Encoding Approach to Hashing," IEEE Transactions on Image Processing, 2014.
 
+**除了这些方法外，此外还有dengcai78的[Unsupervised](https://github.com/dengcai78/MatlabFunc/tree/master/ANNS/Hashing/Unsupervised)**.
+
 **Note**:如果你要将SELVE加入对比中的话，请保持你的Matlab版本在2012及其以下，**非常重要**。
 
 ### V2.0版本结果演示
