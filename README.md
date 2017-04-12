@@ -4,6 +4,13 @@ HABIR哈希图像检索工具箱是一个用Matlab语言写的集成了经典哈
 ### 为什么会有HABIR哈希图像检索工具箱？
 目前我主要致力于大规模图像检索研究，在图像检索中除了专注与duplicate search外我也花很大力气在哈希大规模图像检索上。在研究的过程中，我发觉几乎很少有研究者提供不同对比方法的代码。这为研究带来了很大不便，而且我坚信在研究的过程中，我们应专注于新算法的设计，而不是新人进来时都得重新造轮子，我们可以在现有代码的基础上学习它，并将它进行拓展，为自己使用。于是，就有了你现在看到的这个[hashing-baseline-for-image-retrieval](https://github.com/willard-yuan/hashing-baseline-for-image-retrieval)，希望它能够为关注基于哈希方法进行图像检索的小伙伴们带去些许帮助。如果想深入了解哈希的话，这里总结的一篇博文对你非常的有帮助：[**Hashing图像检索源码及数据库总结**](http://yongyuan.name/blog/codes-of-hash-for-image-retrieval.html)
 
+### 获取HABIR
+通过[v2.1](https://github.com/willard-yuan/hashing-baseline-for-image-retrieval/releases)下载或者通过git获取：
+
+```sh
+git clone https://github.com/willard-yuan/hashing-baseline-for-image-retrieval.git
+```
+
 ### 怎样使用HABIR哈希图像检索工具箱？
 1. 下载数据库。在本地计算机上，HABIR的文件目录结构如下图所示：
 <p align="center"><img src="./doc/downfiles.png" alt="precision-recall-64bits"/></p>
