@@ -35,7 +35,7 @@ switch(method)
     case 'ITQ'
         addpath('./Method-ITQ/');
         addpath('./Method-PCAH/');
-		fprintf('......%s start...... \n\n', 'PCA-ITQ');
+	fprintf('......%s start...... \n\n', 'PCA-ITQ');
         ITQparam.nbits = param.nbits;
         %ITQparam =  trainPCAH(db_data, ITQparam);
         ITQparam =  trainPCAH(train_data, ITQparam);
@@ -48,7 +48,7 @@ switch(method)
     % SGH hashing
     case 'SGH'
         addpath('./Method-SGH/');
-		fprintf('......%s start...... \n\n', 'SGH');
+	fprintf('......%s start...... \n\n', 'SGH');
         %sample = randperm(ndata);
         % Kernel parameter
         s = RandStream('mt19937ar','Seed',0);
@@ -69,7 +69,7 @@ switch(method)
         
      case 'SELVE'
         addpath('./Method-SELVE/');
-		fprintf('......%s start...... \n\n', 'SELVE');
+	fprintf('......%s start...... \n\n', 'SELVE');
         SELVEparam.nbits = param.nbits;
         SELVEparam = initSELVE(train_data, SELVEparam);
         [B_trn, SELVEparam] = trainSELVE(train_data, SELVEparam);
@@ -80,7 +80,7 @@ switch(method)
     % PCA hashing
     case 'PCAH'
         addpath('./Method-PCAH/');
-		fprintf('......%s start...... \n\n', 'PCAH');
+	fprintf('......%s start...... \n\n', 'PCAH');
         PCAHparam.nbits = param.nbits;
         PCAHparam = trainPCAH(db_data, PCAHparam);
         [B_trn, ~] = compressPCAH(train_data, PCAHparam);
@@ -92,7 +92,7 @@ switch(method)
     case 'PCA-RR'
         addpath('./Method-RR/');
         addpath('./Method-PCAH/');
-		fprintf('......%s start...... \n\n', 'PCA-RR');
+	fprintf('......%s start...... \n\n', 'PCA-RR');
         RRparam.nbits = param.nbits;
         RRparam =  trainPCAH(db_data, RRparam);
         RRparam = trainRR(RRparam);      
@@ -104,7 +104,7 @@ switch(method)
    % SKLSH Locality Sensitive Binary Codes from Shift-Invariant Kernels. NIPS 2009.
     case 'SKLSH' 
         addpath('./Method-SKLSH/');
-		fprintf('......%s start......\n\n', 'SKLSH');
+	fprintf('......%s start......\n\n', 'SKLSH');
         RFparam.gamma = 1; 
         RFparam.D = D; 
         RFparam.M = param.nbits;
@@ -117,7 +117,7 @@ switch(method)
     % Locality sensitive hashing (LSH)
      case 'LSH'
         addpath('./Method-LSH/');
-		fprintf('......%s start ......\n\n', 'LSH');
+	fprintf('......%s start ......\n\n', 'LSH');
         LSHparam.nbits = param.nbits;
         LSHparam.dim = D;
         LSHparam = trainLSH(LSHparam);
@@ -130,7 +130,7 @@ switch(method)
      case 'SH'
         addpath('./Method-SH/');
         addpath('./Method-PCAH/');
-		fprintf('......%s start...... \n\n', 'SH');
+	fprintf('......%s start...... \n\n', 'SH');
         SHparam.nbits = param.nbits;
         SHparam =  trainPCAH(db_data, SHparam);
         SHparam = trainSH(train_data, SHparam);
@@ -141,7 +141,7 @@ switch(method)
      % Spherical hashing
      case 'SpH'
         addpath('./Method-SpH/');
-		fprintf('......%s start ......\n\n', 'SpH');
+	fprintf('......%s start ......\n\n', 'SpH');
         SpHparam.nbits = param.nbits;
         SpHparam.ntrain = ntrain;
         SpHparam = trainSpH(train_data, SpHparam);
@@ -150,7 +150,7 @@ switch(method)
      % Density sensitive hashing
      case 'DSH'
         addpath('./Method-DSH/');
-		fprintf('......%s start ......\n\n', 'DSH');
+	fprintf('......%s start ......\n\n', 'DSH');
         DSHparam.nbits = param.nbits;
         DSHparam = trainDSH(train_data, DSHparam);
         [B_trn, ~] = compressDSH(train_data, DSHparam);
@@ -228,7 +228,7 @@ switch(method)
         
      case 'MFH'
         addpath('./Method-MFH/');
-		fprintf('......%s start ......\n\n', 'MFH');
+	fprintf('......%s start ......\n\n', 'MFH');
         MFHparam.nbits = param.nbits;
         MFHparam.ntrain = ntrain;
         %CMFHparam.lambda = 0.5;
@@ -243,7 +243,7 @@ switch(method)
         
       case 'MFH'
         addpath('./Method-MFH/');
-		fprintf('......%s start ......\n\n', 'MFH');
+	fprintf('......%s start ......\n\n', 'MFH');
         MFHparam.nbits = param.nbits;
         MFHparam.ntrain = ntrain;
         %CMFHparam.lambda = 0.5;
@@ -253,7 +253,7 @@ switch(method)
         MFHparam.mu = 100;
         MFHparam = trainMFH(train_data, MFHparam);
         addpath('./Method-LSH/');
-		fprintf('......%s start ......\n\n', 'LSH');
+	fprintf('......%s start ......\n\n', 'LSH');
         LSHparam.nbits = param.nbits;
         LSHparam.dim = D;
         LSHparam = trainLSH(LSHparam);        
@@ -263,7 +263,7 @@ switch(method)
      
      case 'USPLH' % it don't work, the result is error.
         addpath('./Method-USPLH/');
-		fprintf('......%s start...... \n\n', 'USPLH');
+	fprintf('......%s start...... \n\n', 'USPLH');
         USPLHparam.nbits = param.nbits;
         USPLHparam.c_num=2000;% this parameter is for the number of pseduo pair-wise labels
         USPLHparam.lambda=0.1;
@@ -277,7 +277,7 @@ switch(method)
      case 'BRE' % it runs too much slow, and I don't get the result.
         addpath('./Method-BRE/');
         addpath('./Method-PCAH/');
-		fprintf('......%s start...... \n\n', 'BRE');
+	fprintf('......%s start...... \n\n', 'BRE');
         BREparam.nbits = param.nbits;
         BREparam =  trainPCAH(db_data, BREparam);
         BREparam = init_BREparam(train_data, test_data, BREparam);
@@ -296,7 +296,7 @@ switch(choice)
     case 'evaluation'
         clear train_data test_data;
         [recall, precision, ~] = recall_precision(WtrueTestTraining, Dhamm);
-		[rec, pre]= recall_precision5(WtrueTestTraining, Dhamm, pos); % recall VS. the number of retrieved sample
+	[rec, pre]= recall_precision5(WtrueTestTraining, Dhamm, pos); % recall VS. the number of retrieved sample
         [mAP] = area_RP(recall, precision);
         retrieved_list = [];
     case 'evaluationO'
