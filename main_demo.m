@@ -27,8 +27,8 @@ db_name = 'CIFAR10-Gist512';
 query_ID = [];
 param.choice = 'evaluationO';
 
-%loopnbits = [8 16 32 64 128];
-loopnbits = [64];
+loopnbits = [8 16 32 64 128];
+%loopnbits = [64];
 runtimes = 1; % change 8 times to make the rusult more smooth
 
 param.pos = [1:10:40 50:50:1000]; % The number of retrieved samples: Recall-The number of retrieved samples curve
@@ -51,7 +51,7 @@ elseif strcmp(db_name, 'CALTECH256-CNN1024')
     db_data = db_datalabel(:, 1:end);
 end
 
-hashmethods = {'Our Method', 'ITQ'};
+%hashmethods = {'LSH', 'ITQ'};
 %hashmethods = {'Our Method', 'SELVE', 'CBE-opt', 'LSH', 'PCAH', 'SH', 'SKLSH', 'DSH', 'SpH'};
 %hashmethods = {'CBE-rand', 'CBE-opt', 'ITQ', 'LSH', 'PCAH', 'SH', 'SKLSH', 'PCA-RR', 'DSH', 'SpH'};
 nhmethods = length(hashmethods);
