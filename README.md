@@ -20,7 +20,7 @@ git clone https://github.com/willard-yuan/hashing-baseline-for-image-retrieval.g
 
 可以看到这四个特征文件比较大，这4个文件可以到下面给出的链接中下载，下载完请按图1目录放置。
 
-`256feat4096Norml.mat`下载地址：[256feat4096Norml.mat](https://pan.baidu.com/s/1eSHXCKa)</br>
+`256feat4096Norml.mat`下载地址：[256feat4096Norml.mat](http://pan.baidu.com/s/1eScieJo)</br>
 `Cifar10-Gist512.mat`下载地址：[Cifar10-Gist512.mat](https://pan.baidu.com/s/1o877VXC)</br>
 `Caltech256-CNN1024dNorml.mat`下载地址：[Caltech256-CNN1024dNorml.mat](https://pan.baidu.com/s/1pLbbU0V)</br>
 `cifar_10yunchao.mat`下载地址：[cifar_10yunchao.mat](https://pan.baidu.com/s/1dE2QwjZ)</br>
