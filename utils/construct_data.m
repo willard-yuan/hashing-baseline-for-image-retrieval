@@ -69,10 +69,10 @@ num_training = size(train_data, 1);
 % define ground-truth neighbors (this is only used for the evaluation):
 Nneighbors=0.02*num_training;
 DtrueTestTraining = distMat(test_data,train_data); % size = [Ntest x Ntraining]
-%²âÊÔÑù±¾ÓëÑµÁ·Ñù±¾Ö®¼äµÄ¾àÀë
-[Dball, I] = sort(DtrueTestTraining,2); %°´ĞĞÅÅÁĞ£¬Ã¿Ò»ĞĞ±íÊ¾²âÊÔÑù±¾Êı¾İµãÓëÑµÁ·Ñù±¾Êı¾İµãµÄ¾àÀë
-exp_data.knn_p2 = I(:,1:Nneighbors); %±£´æ²âÊÔÊı¾İµãµÄ1000¸ö½üÁÚË÷Òı 10000*1000
-exp_data.dis_p2 = Dball(:,1:Nneighbors); %±£´æ²âÊÔÊı¾İµãµÄ1000¸ö½üÁÚµÄÅ·Ê½¾àÀë 10000*1000
+%æµ‹è¯•æ ·æœ¬ä¸è®­ç»ƒæ ·æœ¬ä¹‹é—´çš„è·ç¦»
+[Dball, I] = sort(DtrueTestTraining,2); %æŒ‰è¡Œæ’åˆ—ï¼Œæ¯ä¸€è¡Œè¡¨ç¤ºæµ‹è¯•æ ·æœ¬æ•°æ®ç‚¹ä¸è®­ç»ƒæ ·æœ¬æ•°æ®ç‚¹çš„è·ç¦»
+exp_data.knn_p2 = I(:,1:Nneighbors); %ä¿å­˜æµ‹è¯•æ•°æ®ç‚¹çš„1000ä¸ªè¿‘é‚»ç´¢å¼• 10000*1000
+exp_data.dis_p2 = Dball(:,1:Nneighbors); %ä¿å­˜æµ‹è¯•æ•°æ®ç‚¹çš„1000ä¸ªè¿‘é‚»çš„æ¬§å¼è·ç¦» 10000*1000
 
 
 % generate training ans test split and the data matrix
@@ -95,7 +95,7 @@ exp_data.db_data = XX;
 exp_data.train_ID = train_ID;
 exp_data.test_ID = test_ID;
 
-%exp_data.WTT = WtrueTestTraining;
+exp_data.WTT = WtrueTestTraining;
 
 cons_data_name = ['./DB-FeaturesAfterProcessing/pre_' db_name  '.mat'];
 save(cons_data_name, 'exp_data');
