@@ -18,7 +18,7 @@ test_data = exp_data.test_data;
 db_data = exp_data.db_data;
 trueRank = exp_data.knn_p2;
 
-%WtrueTestTraining = exp_data.WTT;
+WtrueTestTraining = exp_data.WTT;
 pos = param.pos;
 
 ID.train = exp_data.train_ID;
