@@ -2,15 +2,7 @@
 % This is the main script ufor evaluate the performance, and you can
 % get Precision-Recall curve, mean Average Precision (mAP) curves, 
 % Recall-The number of retrieved samples curve.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Version control:
-%     V2.0 2015/06/10
-%     V1.5 2014/10/20
-%     V1.4 2014/09/16
-%     V1.3 2014/08/21
-%     V1.2 2014/08/16
-%     V1.1 2013/09/26
-%     V1.0 2013/07/22
+% Version control: from 2013.07.22 to 2018.03.24
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Author:
 %     github: @willard-yuan
@@ -25,7 +17,18 @@ db_name = 'CIFAR10-Gist512';
 %db_name = 'CALTECH256-CNN1024'; % 'CALTECH256CNN' as a option
 
 query_ID = [];
-param.choice = 'evaluationO';
+% 'evaluation_PR' or 'evaluation_PR_MAP'. By Setting 'evaluation_PR', you
+% will get 'recall vs. the number of retrieved sample' curve and 
+% 'precision vs. the number of retrieved sample' curve. By Setting 
+% 'evaluation_PR_MAP', You will get all the curves. There is a little
+% difference to compute the recall rate and precision rate between 'evaluation_PR'
+% and 'evaluation_PR_MAP'. Please to read the code 'demo.m' in from line 296
+% to line 310. 
+% Note if you set to 'visualization', you should read 'visualize_retrieval_demo.m'
+% carefully, and you also need to modify something to show the retrieval
+% result of a query in CIFAR10 dataset. 'query_ID' is the query index you
+% want to retrieve.
+param.choice = 'evaluation_PR';
 
 loopnbits = [8 16 32 64 128];
 %loopnbits = [64];
@@ -72,23 +75,23 @@ for k = 1:runtimes
 end
 
 % plot attribution
-line_width=2;
-marker_size=8;
-xy_font_size=14;
-legend_font_size=12;
+line_width = 2;
+marker_size = 8;
+xy_font_size = 14;
+legend_font_size = 12;
 linewidth = 1.6;
-title_font_size=xy_font_size;
+title_font_size = xy_font_size;
 
 %choose_bits = 5; % i: choose the bits to show
 %choose_times = 3; % k is the times of run times
-choose_bits = 1; % i: choose the bits to show
+choose_bits = 4; % i: choose the bits to show
 choose_times = 1; % k is the times of run times
 
 % average MAP
 for j = 1:nhmethods
     for i =1: length(loopnbits)
         tmp = zeros(size(mAP{1, 1}{i, j}));
-        for k =1:runtimes
+        for k = 1:runtimes
             tmp = tmp+mAP{1, k}{i, j};
         end
         MAP{i, j} = tmp/runtimes;
@@ -176,7 +179,7 @@ for j = 1: nhmethods
     set(p,'MarkerSize', marker_size);
 end
 
-str_nbits =  num2str(loopnbits(choose_bits));
+str_nbits = num2str(loopnbits(choose_bits));
 h1 = xlabel(['Recall @ ', str_nbits, ' bits']);
 h2 = ylabel('Precision');
 title(db_name, 'FontSize', title_font_size);

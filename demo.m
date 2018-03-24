@@ -293,13 +293,13 @@ Dhamm = hammingDist(B_tst, B_trn);
 clear B_tst B_trn;
 choice = param.choice;
 switch(choice)
-    case 'evaluation'
+    case 'evaluation_PR_MAP'
         clear train_data test_data;
         [recall, precision, ~] = recall_precision(WtrueTestTraining, Dhamm);
 	[rec, pre]= recall_precision5(WtrueTestTraining, Dhamm, pos); % recall VS. the number of retrieved sample
         [mAP] = area_RP(recall, precision);
         retrieved_list = [];
-    case 'evaluationO'
+    case 'evaluation_PR'
         clear train_data test_data;
         eva_info = eva_ranking(rank, trueRank, pos);
         rec = eva_info.recall;

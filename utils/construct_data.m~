@@ -30,14 +30,14 @@ switch(choice)
     case 'visualization'
         s = RandStream('mt19937ar','Seed',0);
         R = randperm(s, ndata);
-    case 'evaluation_PR'
+    case 'evaluationO'
         if (runtimes == 1)
             s = RandStream('mt19937ar','Seed',0);
             R = randperm(s, ndata);
         else
             R = randperm(ndata); 
         end 
-    case 'evaluation_PR_MAP'
+    case 'evaluation'
         if (runtimes == 1)
             s = RandStream('mt19937ar','Seed',0);
             R = randperm(s, ndata);
