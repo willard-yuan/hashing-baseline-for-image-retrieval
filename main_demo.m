@@ -28,7 +28,7 @@ query_ID = [];
 % carefully, and you also need to modify something to show the retrieval
 % result of a query in CIFAR10 dataset. 'query_ID' is the query index you
 % want to retrieve.
-param.choice = 'evaluation_PR';
+param.choice = 'evaluation_PR_MAP';
 
 loopnbits = [8 16 32 64 128];
 %loopnbits = [64];
