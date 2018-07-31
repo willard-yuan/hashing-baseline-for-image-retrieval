@@ -1,3 +1,5 @@
+# HABIR Toolkit
+
 ### HABIR哈希图像检索工具箱是什么？
 
 HABIR哈希图像检索工具箱是一个用Matlab语言写的集成了经典哈希方法以及最近几年无监督哈希方法的基准框架，里面包含了针对图像检索的主流评价指标，使用该工具箱使得你可以专注于哈希方法的设计，其他性能评价这些方面的东西可以由它来帮你完成。
@@ -31,43 +33,38 @@ git clone https://github.com/willard-yuan/hashing-baseline-for-image-retrieval.g
 
 将下载的数据放在`DB-FeaturesToBeProcessing`文件夹中。另外一个比较大的文件是[CIFAR-10](http://www.cs.toronto.edu/~kriz/cifar.html)数据库，这个图像数据库请到官网下载对应的Matlab版，解压后按图2放置。
 
-**Note**:对于CNN特征的提取，可以使用我写的一个采用VGG训练已模型提取CNN特征的代码，[CNN-for-Image-Retrieval](https://github.com/willard-yuan/CNN-for-Image-Retrieval)。
+**Note**：对于CNN特征的提取，可以使用我写的一个采用VGG训练已模型提取CNN特征的代码，[CNN-for-Image-Retrieval](https://github.com/willard-yuan/CNN-for-Image-Retrieval)。
 
-2.运行脚本。该工具箱有三个可执行的脚本，各脚本对应功能如下：
+2. 运行脚本。该工具箱有三个可执行的脚本，各脚本对应功能如下：
 
-- main_demo.m: 主要脚本文件，This is the main script ufor evaluate the performance,  and you can get Precision-Recall curve, mean Average Precision (mAP) curves,  Recall-The number of retrieved samples curve, Precision-The number of retrieved samples curve.(偷点懒，把脚本中我写的英文注释拿过来)
-- visualize\_retrieval_demo.m：检索可视化脚本文件，主要用来对不同的查询结果进行检索可视化（**该脚本还在整理中**）。
-- cifar10_10class\_visualization.m：可视化CIFAR-10数据库上的图像，官网上CIFAR-10数据库提供的是保存为像素值的mat文件，用该脚本你可以对该数据库上的图像进行可视化。
+- `main_demo.m`：主要脚本文件，This is the main script ufor evaluate the performance,  and you can get Precision-Recall curve, mean Average Precision (mAP) curves,  Recall-The number of retrieved samples curve, Precision-The number of retrieved samples curve.(偷点懒，把脚本中我写的英文注释拿过来)
+- `visualize_retrieval_demo.m`：检索可视化脚本文件，主要用来对不同的查询结果进行检索可视化（**该脚本还在整理中**）。
+- `cifar10_10class_visualization.m`：可视化CIFAR-10数据库上的图像，官网上CIFAR-10数据库提供的是保存为像素值的mat文件，用该脚本你可以对该数据库上的图像进行可视化。
 
 
 ### 收录进HABIR哈希图像检索工具箱的哈希方法
 
-- **PCA-ITQ**,**PCA-RR**: Iterative Quantization. 作者建立的项目详细信息请移步这里：[ITQ](http://slazebni.cs.illinois.edu/research/smallcode.zip)。
->Yunchao Gong and Svetlana Lazebnik.  Iterative Quantization: A Procrustean Approach to Learning Binary Codes. In: IEEE International Conference on Computer Vision and Pattern Recognition (CVPR), 2011.
+- **PCA-ITQ**,**PCA-RR**: Iterative Quantization. 作者建立的项目详细信息请移步这里：[ITQ](http://slazebni.cs.illinois.edu/research/smallcode.zip)。Yunchao Gong and Svetlana Lazebnik.  Iterative Quantization: A Procrustean Approach to Learning Binary Codes. In: IEEE International Conference on Computer Vision and Pattern Recognition (CVPR), 2011.
 
-- **SH**: Spectral Hashing. 作者建立的项目详细信息请移步这里：[SH](http://www.cs.huji.ac.il/~yweiss/SpectralHashing/)。
->Y. Weiss, A. Torralba, R. Fergus. Advances in Neural Information Processing Systems, 2008.
+- **SH**: Spectral Hashing. 作者建立的项目详细信息请移步这里：[SH](http://www.cs.huji.ac.il/~yweiss/SpectralHashing/)。Y. Weiss, A. Torralba, R. Fergus. Advances in Neural Information Processing Systems, 2008.
 
-- **SpH**: Spherical Hashing. 作者建立的项目详细信息请移步这里：[SpH](http://sglab.kaist.ac.kr/Spherical_Hashing/)。
->Jae-Pil Heo, Youngwoon Lee, Junfeng He, Shih-Fu Chang, and Sung-eui Yoon. Spherical Hashing. CVPR, 2012.
+- **SpH**: Spherical Hashing. 作者建立的项目详细信息请移步这里：[SpH](http://sglab.kaist.ac.kr/Spherical_Hashing/)。Jae-Pil Heo, Youngwoon Lee, Junfeng He, Shih-Fu Chang, and Sung-eui Yoon. Spherical Hashing. CVPR, 2012.
 
 - **LSH**: Local Sensentive Hashing，经典方法。
-- **SKLSH**: Maxim Raginsky and Svetlana Lazebnik. 
->Locality-sensitive binary codes from shift-invariant kernels. Advances in Neural Information Processing 22, pp. 1509-1517, 2009.
+
+- **SKLSH**: Maxim Raginsky and Svetlana Lazebnik. Locality-sensitive binary codes from shift-invariant kernels. Advances in Neural Information Processing 22, pp. 1509-1517, 2009.
 
 - **PCAH**: PCA Hashing.
-- **DSH**: Density Sensitive Hashing. 项目主页请移步这里：[DSH](http://www.cad.zju.edu.cn/home/dengcai/Data/DSH.html).
->Z. Jin, C. Li, Y. Lin and D. Cai, "Density sensitive hashing," IEEE Transactions on Cybernetics, 44(8), pp. 1362-1371.
 
-- **CBE**: Circulant Binary Embedding.
->X. Yu, S. Kumar, Y. Gong, S.F. Chang. Circulant Binary Embedding. In Proceedings of the International Conference on Machine Learning (ICML), 2014.
+- **DSH**: Density Sensitive Hashing. 项目主页请移步这里：[DSH](http://www.cad.zju.edu.cn/home/dengcai/Data/DSH.html)。Z. Jin, C. Li, Y. Lin and D. Cai, "Density sensitive hashing," IEEE Transactions on Cybernetics, 44(8), pp. 1362-1371.
 
-- **SELVE**: Sparse Embedding and Least Variance Encoding
->X. Zhu, L. Zhang and Z. Huang, "A Sparse Embedding and Least Variance Encoding Approach to Hashing," IEEE Transactions on Image Processing, 2014.
+- **CBE**: Circulant Binary Embedding. X. Yu, S. Kumar, Y. Gong, S.F. Chang. Circulant Binary Embedding. In Proceedings of the International Conference on Machine Learning (ICML), 2014.
 
-**除了这些方法外，此外还有dengcai78的[Unsupervised](https://github.com/dengcai78/MatlabFunc/tree/master/ANNS/Hashing/Unsupervised)**.
+- **SELVE**: Sparse Embedding and Least Variance Encoding. X. Zhu, L. Zhang and Z. Huang, "A Sparse Embedding and Least Variance Encoding Approach to Hashing," IEEE Transactions on Image Processing, 2014.
 
-**Note**:如果你要将SELVE加入对比中的话，请保持你的Matlab版本在2012及其以下，**非常重要**。
+**除了这些方法外，此外还有dengcai78的[Unsupervised](https://github.com/dengcai78/MatlabFunc/tree/master/ANNS/Hashing/Unsupervised)**。
+
+**Note**：如果你要将SELVE加入对比中的话，请保持你的Matlab版本在2012及其以下，**非常重要**。
 
 ### V2.0版本结果演示
 
@@ -84,6 +81,7 @@ V2.0版本演示结果如下，左边为Precision-Recall曲线，中间为Recall
 <p align="center">图7：8位编码</p>
 <p align="center"><img src="./doc/together_png/mAP.png" alt="precision-recall-64bits"/></p>
 <p align="center">图8：不同编码位下mAP曲线(run times = 1)</p>
+
 **Tips**：为了对图片进行润色，推荐你用Adobe Illustrator对其进行处理使得其更加美观。
 
 ### V1.x版本结果演示
@@ -175,6 +173,21 @@ Compact Structure Hashing via Sparse and Similarity Preserving Embedding, 研一
 }
 ```
 
+### Citation
+
+```latex
+@misc{sis,
+    author = {Yong Yuan},
+    title = {HABIR: Hashing Baseline for Image Retrieval},
+    howpublished = {\url{https://github.com/willard-yuan/hashing-baseline-for-image-retrieval}}
+}
+```
+
+
+### 谁引用了该工具包
+
+1. [Deep Hashing with Category Mask for Fast Video Retrieval](https://arxiv.org/pdf/1712.08315.pdf)
+
 ### 贡献
 
-如果你觉得这个对你有用，想加入进来的话，可以先clone过去，然后再Pull Requests.
+如果你觉得这个对你有用，想加入进来的话，可以先clone过去，然后再Pull Requests。
