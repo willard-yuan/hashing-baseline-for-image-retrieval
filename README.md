@@ -1,5 +1,7 @@
 # HABIR Toolkit
 
+[![License](https://img.shields.io/badge/license-BSD-blue.svg)](../LICENSE)
+
 ### HABIR哈希图像检索工具箱是什么？
 
 HABIR哈希图像检索工具箱是一个用Matlab语言写的集成了经典哈希方法以及最近几年无监督哈希方法的基准框架，里面包含了针对图像检索的主流评价指标，使用该工具箱使得你可以专注于哈希方法的设计，其他性能评价这些方面的东西可以由它来帮你完成。
