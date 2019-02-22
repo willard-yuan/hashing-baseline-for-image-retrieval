@@ -285,6 +285,23 @@ switch(method)
         [B_trn, ~] = compressBRE(H);
         [B_tst, ~] = compressBRE(H_query);
         clear db_data BREparam;
+        
+     case 'SP' 
+         %Yan Xia,Kaiming He,Pushmeet Kohli,and Jian Sun.
+         %"Sparse Projections for High-Dimensional Binary Codes." In CVPR 2015.
+         addpath('./Method-SP/');
+         fprintf('......%s start...... \n\n', 'SP');
+         SPparam.nbits = param.nbits;
+         SPparam.sparsity = 0.9;
+         SPparam.iter = 50;
+         %train
+         R = SP(train_data,SPparam);
+         %coding
+         B_trn = (train_data*R' >=0);
+         B_tst = (test_data*R' >=0);
+         B_trn = compactbit(B_trn);
+         B_tst = compactbit(B_tst);
+         clear db_data SPparam;
 end
 
 % compute Hamming metric and compute recall precision
