@@ -64,6 +64,8 @@ git clone https://github.com/willard-yuan/hashing-baseline-for-image-retrieval.g
 
 - **SELVE**: Sparse Embedding and Least Variance Encoding. X. Zhu, L. Zhang and Z. Huang, "A Sparse Embedding and Least Variance Encoding Approach to Hashing," IEEE Transactions on Image Processing, 2014.
 
+- **SP**: Sparse Projections for High-Dimensional Binary Codes. Y. Xia, K. He, P. Kohli and J. Sun, CVPR, 2015. Thanks for @[Lishuang322](https://github.com/Lishuang322).
+
 **除了这些方法外，此外还有dengcai78的[Unsupervised](https://github.com/dengcai78/MatlabFunc/tree/master/ANNS/Hashing/Unsupervised)**。
 
 **Note**：如果你要将SELVE加入对比中的话，请保持你的Matlab版本在2012及其以下，**非常重要**。
