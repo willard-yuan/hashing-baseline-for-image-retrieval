@@ -54,7 +54,7 @@ elseif strcmp(db_name, 'CALTECH256-CNN1024')
     db_data = db_datalabel(:, 1:end);
 end
 
-hashmethods = {'LSH', 'ITQ'};
+hashmethods = {'SP', 'ITQ'};
 %hashmethods = {'Our Method', 'SELVE', 'CBE-opt', 'LSH', 'PCAH', 'SH', 'SKLSH', 'DSH', 'SpH'};
 %hashmethods = {'CBE-rand', 'CBE-opt', 'ITQ', 'LSH', 'PCAH', 'SH', 'SKLSH', 'PCA-RR', 'DSH', 'SpH'};
 nhmethods = length(hashmethods);
