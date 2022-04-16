@@ -192,6 +192,12 @@ Compact Structure Hashing via Sparse and Similarity Preserving Embedding, 研一
 
 1. [Deep Hashing with Category Mask for Fast Video Retrieval](https://arxiv.org/pdf/1712.08315.pdf)
 
-### 贡献
+### 贡献与打赏
 
 如果你觉得这个对你有用，想加入进来的话，可以先clone过去，然后再Pull Requests。
+
+若在使用过程中出现任何问题，请在赞赏留言中留下您的微信，收到消息后我会尽快修复。
+
+<div align="left">
+  <img width="20%" alt="A small reward is highly appreciated! (#^.^#) Thank you~" src="https://github.com/willard-yuan/willard-yuan.github.io/blob/master/images/payimg/weipayimg.jpg">
+</div>
